@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "586041971859",
+    "firebase_url": "https://cup-of-coffee-401b9.firebaseio.com",
+    "project_id": "cup-of-coffee-401b9",
+    "storage_bucket": "cup-of-coffee-401b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586041971859:android:7747ee64fcce509c",
+        "android_client_info": {
+          "package_name": "edu.uw.barngh.cupoftea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586041971859-80knqhk3t4m35rvfgatvmdpb8u04l6np.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvuZwGCEVme11RtMIE4KA-u65-3rU8qCw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
