@@ -114,16 +114,10 @@ class ProfilePictureActivity : AppCompatActivity() {
                 }
             }
 
-
-
-
-
         }
 
         super.onActivityResult(requestCode, resultCode, imageData)
     }
-
-
 
 
 }
