@@ -1,18 +1,35 @@
 package edu.uw.barngh.cupoftea
 
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.firestore.DocumentReference
+import com.google.android.gms.tasks.OnSuccessListener
+
+
 
 
 class FirebaseDB {
-//    private var database: DatabaseReference = FirebaseDatabase.getInstance().reference
-    private lateinit var database: DatabaseReference
+    var db = FirebaseFirestore.getInstance()
 
-    fun writeNewData(userId: String) {
-        database = FirebaseDatabase.getInstance().reference
 
-//        database.child("users").child(userId).setValue("hello")
-        database.child("users").child(userId).child("username").setValue("Monica")
+    fun writeNewUser(userId: String) {
+
+        val user = HashMap<String, Any>()
+        user["first"] = "Monica"
+        user["last"] = "Ma"
+        user["email"] = "gmial.com"
+
+        db.collection("users")
+            .add(user)
     }
+
+
+//    fun writeNewData(userId: String) {
+//        database = FirebaseDatabase.getInstance().reference
+//
+////        database.child("users").child(userId).setValue("hello")
+//        database.child("users").child(userId).child("username").setValue("Monica")
+//    }
 
 }

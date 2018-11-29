@@ -14,7 +14,7 @@ class NameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_name)
 
         val DB = FirebaseDB()
-        DB.writeNewData("123")
+        DB.writeNewUser("123")
         Log.v("newDB", "loading db")
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
             val intent = Intent(this, AgeActivity::class.java)
