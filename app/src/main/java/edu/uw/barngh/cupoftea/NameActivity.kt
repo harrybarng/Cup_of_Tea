@@ -17,7 +17,8 @@ class NameActivity : AppCompatActivity() {
         DB.writeNewUser("123")
         Log.v("newDB", "loading db")
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            val intent = Intent(this, AgeActivity::class.java)
+//            val intent = Intent(this, AgeActivity::class.java)
+            val intent = Intent(this, ProfilePictureActivity::class.java)
             this.startActivity(intent)
         }
     }

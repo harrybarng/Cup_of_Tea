@@ -9,7 +9,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 class FirebaseDB {
     var db = FirebaseFirestore.getInstance()
 
-
     fun writeNewUser(userId: String) {
 
         val user = HashMap<String, Any>()
