@@ -2,9 +2,6 @@ package edu.uw.barngh.cupoftea
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.firebase.firestore.DocumentReference
-import com.google.android.gms.tasks.OnSuccessListener
 
 
 
