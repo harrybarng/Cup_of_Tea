@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.net.Uri
+import android.preference.PreferenceManager
 import android.widget.Button
 import android.widget.Toast
 import com.google.android.gms.tasks.Continuation
@@ -76,11 +77,10 @@ class ProfilePictureActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     // Handle unsuccessful uploads
                     Toast.makeText(this, "Upload Failed", Toast.LENGTH_LONG).show()
-                }.addOnSuccessListener {
-                    val imageView = findViewById<ImageView>(R.id.img_thumbnail)
-                    imageView.setImageBitmap(bitmap)
-                    Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
                 }
+//                .addOnSuccessListener {
+//
+//                }
 
 
             val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
@@ -93,8 +93,21 @@ class ProfilePictureActivity : AppCompatActivity() {
             }).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val downloadUri = task.result
+                    val settings = PreferenceManager.getDefaultSharedPreferences(this)
+                    val editor = settings.edit()
+                    editor.putString("profile_pic_url", downloadUri.toString())
+                    editor.apply()
+
+
+
+                    val imageView = findViewById<ImageView>(R.id.img_thumbnail)
+                    imageView.setImageBitmap(bitmap)
+                    Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
+
+                    Log.v("profile_pic", "Profile pic url from preference: " + settings.getString("profile_pic_url", ""))
                     // can put it in shared pref
-                    Log.v("profile_pic", downloadUri.toString())
+//                    Log.v("profile_pic", downloadUri.toString())
+
                 } else {
                     // Handle failures
                     // ...
