@@ -16,10 +16,16 @@ class NameActivity : AppCompatActivity() {
         // PLEASE DELETE ME, just for test
         // test write new newer
         val DB = FirebaseDB()
-        DB.writeNewUser("monica")
+        val user = HashMap<String, Any>()
+        user["userId"] = "monica"
+        user["first"] = "Monica"
+        user["last"] = "Ma"
+        user["email"] = "gmail.com"
+        DB.writeNewUser(user)
         Log.v("newDB", "loading db")
         // test read from database
-        DB.readUser("monica")
+        var userId = user["userId"]
+        DB.readUser(userId as String)
         Log.v("newDB", "loading user's data")
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->

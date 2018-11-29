@@ -10,19 +10,15 @@ class FirebaseDB {
 
     var db = FirebaseFirestore.getInstance()
 
-    fun writeNewUser(userId: String) {
+    fun writeNewUser(user: HashMap<String, Any>) {
 
-        val user = HashMap<String, Any>()
-        user["first"] = "Monica"
-        user["last"] = "Ma"
-        user["email"] = "gmail.com"
+        var userId = user["userId"] as String
 
         db.collection("users").document(userId)
             .set(user)
             .addOnSuccessListener { documentReference ->
                 Log.d(
-                    TAG,
-                    "A new user added with ID: " + userId
+                    TAG, "A new user added with ID: " + userId
                 )
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error adding user", e) }
