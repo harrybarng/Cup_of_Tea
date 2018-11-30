@@ -22,6 +22,9 @@
         <activity
                 android:name=".AgeActivity">
         </activity>
+        <activity
+                android:name=".GenderActivity">
+        </activity>
     </application>
 
 </manifest>
