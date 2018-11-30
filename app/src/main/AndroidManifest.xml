@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-                android:name=".NameActivity">
+        <activity android:name=".NameActivity">
         </activity>
-        <activity
-                android:name=".AgeActivity">
+        <activity android:name=".AgeActivity">
+        </activity>
+        <activity android:name=".ProfilePictureActivity">
         </activity>
         <activity
                 android:name=".GenderActivity">
