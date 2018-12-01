@@ -8,17 +8,22 @@ import android.widget.Button
 import android.widget.ImageButton
 import edu.uw.barngh.cupoftea.R
 
-class GenderActivity : AppCompatActivity() {
+class GenderInterestActivity : AppCompatActivity() {
 
     var maleSelect = false
     var femaleSelect = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gender)
+        setContentView(R.layout.activity_gender_interest)
+
+        findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
+            val intent = Intent(this, InterestAcitivity::class.java)
+            this.startActivity(intent)
+        }
 
         findViewById<ImageButton>(R.id.male_button).setOnClickListener{
-            v ->
+                v ->
             if(femaleSelect){
                 femaleSelect = false
                 findViewById<ImageButton>(R.id.female_button).setImageResource(R.drawable.bt_female)
@@ -39,11 +44,6 @@ class GenderActivity : AppCompatActivity() {
                 femaleSelect = true
                 findViewById<ImageButton>(R.id.female_button).setImageResource(R.drawable.bt_female_selected)
             }
-        }
-
-        findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            val intent = Intent(this, GenderInterestActivity::class.java)
-            this.startActivity(intent)
         }
     }
 }

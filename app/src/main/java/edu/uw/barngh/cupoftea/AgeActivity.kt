@@ -1,10 +1,7 @@
 package edu.uw.barngh.cupoftea
 
-<<<<<<< HEAD
-import android.content.Intent
-=======
 import android.app.DatePickerDialog
->>>>>>> e8b2b50a9322bf19cab91a0c54101246124e4e85
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -27,18 +24,6 @@ class AgeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_age)
-<<<<<<< HEAD
-        var datepicker = findViewById<DatePicker>(R.id.birthdate)
-        var date = Calendar.getInstance()
-        var mildate = date.timeInMillis
-        var milInYear = 31536000000
-        datepicker.minDate = mildate - (milInYear*43)
-        datepicker.maxDate = mildate - (milInYear*18)
-
-        findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            val intent = Intent(this, GenderActivity::class.java)
-            this.startActivity(intent)
-=======
 //        var datepicker = findViewById<DatePicker>(R.id.birthdate)
 //        var date = Calendar.getInstance()
 //        var mildate = date.timeInMillis
@@ -58,11 +43,16 @@ class AgeActivity : AppCompatActivity() {
                     month = mMonth
                     dayofMonth = mDay
                 }, year, month, dayofMonth
-                )
+            )
             dialog.datePicker.minDate = cal.timeInMillis - (31536000000*100)
             dialog.datePicker.maxDate = cal.timeInMillis - (31536000000*18)
             dialog.show()
->>>>>>> e8b2b50a9322bf19cab91a0c54101246124e4e85
+        }
+
+        findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
+            val intent = Intent(this, GenderActivity::class.java)
+//            val intent = Intent(this, ProfilePictureActivity::class.java)
+            this.startActivity(intent)
         }
     }
 }

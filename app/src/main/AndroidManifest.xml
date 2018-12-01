@@ -25,6 +25,11 @@
         <activity
                 android:name=".GenderActivity">
         </activity>
+        <activity
+                android:name=".GenderInterestActivity">
+        </activity>
+        <activity android:name=".InterestAcitivity">
+        </activity>
     </application>
 
 </manifest>

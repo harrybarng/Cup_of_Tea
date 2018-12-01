@@ -24,53 +24,58 @@
             android:gravity="center"/>
 
     <TextView
-            android:id="@+id/dateQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="136dp"
-            android:text="When's your birthday?"
+            android:text="Pick 3 interests"
             android:textColor="#000000"
             android:textSize="24sp"/>
 
-    <TextView
-            android:layout_width="match_parent"
+    <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="100dp"
+            android:background="@drawable/interest_select"
+            android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:hint="click select Birthday"
-            android:id="@+id/showDate"
-            android:gravity="center_horizontal"
-            android:textSize="24sp"
-            android:layout_below="@id/dateQuestion"/>
+            app:layout_constraintBottom_toBottomOf="parent">
 
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/showDate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:hint="enter Birthday"
-            android:id="@+id/choose"
-            android:gravity="center_horizontal"
-            android:textSize="24sp"
-            android:layout_below="@id/dateQuestion"/>
-
-
-    <!--fragment dialog-->
-    <!--<DatePicker-->
-    <!--android:id="@+id/birthdate"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--android:layout_width="280dp"-->
-    <!--android:layout_height="360dp"/>-->
+            <CheckBox
+                    android:id="@+id/hiking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hiking"/>
+            <CheckBox
+                    android:id="@+id/movie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Movie"/>
+            <CheckBox
+                    android:id="@+id/Eating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eating"/>
+            <CheckBox
+                    android:id="@+id/Gaming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gaming"/>
+            <CheckBox
+                    android:id="@+id/Cuddling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cuddling"/>
+            <CheckBox
+                    android:id="@+id/Cooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cooking"/>
+    </LinearLayout>
 
 
     <Button
