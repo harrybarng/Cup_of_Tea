@@ -1,5 +1,6 @@
 package edu.uw.barngh.cupoftea
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -34,18 +35,17 @@ class PersonDetailFragment : Fragment() {
 
         val user = arguments!!.getParcelable<PersonListActivity.User>(USER_PARCEL_KEY)
 
-        //TODO: need to be modified to be USER INFO
         (rootView.findViewById<View>(R.id.person_heading) as TextView).text =
                 if (user.first_name == "null") "first_name" else user.first_name
 
         (rootView.findViewById<View>(R.id.person_detail) as TextView).text =
-                if (user.last_name == "null") "last_name." else user.last_name
+                if (user.age == null) "age" else "Age: ${user.age}"
 
         (rootView.findViewById<View>(R.id.person_source) as TextView).text =
-                if (user.gender == "null") "No source" else "${user.gender}"
+                if (user.gender == "null") "No source" else "My self-summary:"
 
-        val source = (rootView.findViewById<View>(R.id.person_source_link) as TextView)
-        source.text = if (user.gender_pref == "null") "" else user.gender_pref
+        val summary = (rootView.findViewById<View>(R.id.person_source_link) as TextView)
+        summary.text = if (user.summary == "null") "" else user.summary
 
         setUpToolBar?.setupToolbar()
 

@@ -37,7 +37,6 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayShowTitleEnabled(false)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +54,6 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
         //
 
         if (savedInstanceState == null){
-
             val articleItem: PersonListActivity.User = intent.extras!!.getParcelable("article_item")!!
             this.shareText = articleItem.first_name + articleItem.last_name
             val detailFragment = PersonDetailFragment.newInstance(articleItem)

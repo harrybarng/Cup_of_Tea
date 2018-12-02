@@ -1,8 +1,10 @@
 package edu.uw.barngh.cupoftea
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.preference.PreferenceManager
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
@@ -30,9 +32,11 @@ import kotlinx.android.parcel.Parcelize
  */
 class PersonListActivity : AppCompatActivity() {
 
-    private var mTwoPane: Boolean = false
+
     val TAG = "MainActivity"
+    private var mTwoPane: Boolean = false
     private var searchKey = ""
+    private var DEFAULT_GENDER = "female"
     var db = FirebaseFirestore.getInstance()
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -80,23 +84,27 @@ class PersonListActivity : AppCompatActivity() {
 
         // adding fake data
 //        var user = hashMapOf<String, Any>(
-//            "userId" to "20612347567",
-//            "first_name" to "Benjamin",
+//            "userId" to "2061234752",
+//            "first_name" to "Ross",
 //            "last_name" to "Black",
 //            "gender" to "male",
 //            "gender_pref" to "female",
-//            "location" to hashMapOf("lat" to 45.355223,"lng" to -121.412334),
+//            "age" to 25,
+//            "location" to hashMapOf("lat" to 43.355223,"lng" to -122.412334),
+//            "summary" to "A machine learning hacker!",
 //            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062221001.jpeg?alt=media&token=074c1eeb-fa31-4aa2-b02f-6e4eed4668c7"
 //        )
 //        FirebaseDB().writeNewUser(user)
 //
 //        user = hashMapOf<String, Any>(
-//            "userId" to "20612367892",
-//            "first_name" to "Mason",
-//            "last_name" to "Zhang",
+//            "userId" to "2061236783",
+//            "first_name" to "Ken",
+//            "last_name" to "Wang",
 //            "gender" to "male",
 //            "gender_pref" to "female",
+//            "age" to 21,
 //            "location" to hashMapOf("lat" to 46.632794,"lng" to -121.318786),
+//            "summary" to "I hate raining but love Seattle!",
 //            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062221002.jpeg?alt=media&token=859f5fc1-0d95-46c0-b045-858802928301")
 //        FirebaseDB().writeNewUser(user)
 
@@ -181,8 +189,12 @@ class PersonListActivity : AppCompatActivity() {
 
     private fun loadData(searchKey: String = "") {
         // read data from firebase
-        // TODO: need to changed to be user preference
-        readUserByGender("female")
+        val sharedPref = this.getSharedPreferences(
+            getString(R.string.key_user_interested_gender),
+            Context.MODE_PRIVATE
+        )
+        var genderInterested = sharedPref.getString(getString(R.string.key_user_interested_gender), DEFAULT_GENDER)
+        readUserByGender(genderInterested)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, newsList: List<User>) {
@@ -259,10 +271,13 @@ class PersonListActivity : AppCompatActivity() {
     data class User(
         val first_name:String,
         val last_name:String,
+        val age: Long,
         val gender:String,
         val gender_pref:String,
         val location: MutableMap<String, Double> = mutableMapOf(),
-        val profile_picture: String
+        val profile_picture: String,
+        val summary: String
+
     ) : Parcelable
 
     var currentUsers = mutableListOf<User>()
@@ -272,11 +287,13 @@ class PersonListActivity : AppCompatActivity() {
             .whereEqualTo("gender", gender)
             .get()
             .addOnSuccessListener { documents ->
+                currentUsers.clear()
                 for (document in documents) {
                     Log.d(TAG, document.id + " => " + document.data)
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
-                        document.get("gender").toString(), document.get("gender_pref").toString(),
-                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString()))
+                        document.get("age") as Long, document.get("gender").toString(), document.get("gender_pref").toString(),
+                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
+                        document.get("summary").toString()))
                 }
                 val recyclerView = findViewById<View>(R.id.person_list)!!
                 setupRecyclerView(recyclerView as RecyclerView, currentUsers)
@@ -294,8 +311,9 @@ class PersonListActivity : AppCompatActivity() {
                 if (document!!.exists()) {
                     Log.d(TAG, "User data: " + document.data!!)
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
-                        document.get("gender").toString(), document.get("gender_pref").toString(),
-                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString()))
+                        document.get("age") as Long, document.get("gender").toString(), document.get("gender_pref").toString(),
+                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
+                        document.get("summary").toString()))
 
                 } else {
                     Log.d(TAG, "No such user")
