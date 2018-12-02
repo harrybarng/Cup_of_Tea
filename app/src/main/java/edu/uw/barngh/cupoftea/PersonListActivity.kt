@@ -19,15 +19,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.NetworkImageView
-
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.activity_person_list.*
-import kotlinx.android.synthetic.main.person_list_content.view.*
-import kotlinx.android.synthetic.main.person_list.*
-import org.json.JSONException
-import org.json.JSONObject
-import java.text.ParseException
-import java.text.SimpleDateFormat
 
 /**
  * An activity representing a list of Pings. This activity
@@ -42,6 +35,7 @@ class PersonListActivity : AppCompatActivity() {
     private var mTwoPane: Boolean = false
     val TAG = "MainActivity"
     private var searchKey = ""
+    var db = FirebaseFirestore.getInstance()
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the options menu from XML
@@ -80,7 +74,6 @@ class PersonListActivity : AppCompatActivity() {
 //    }
 
     override fun onSaveInstanceState(outState: Bundle) {
-
         outState.putString("searchKey", searchKey)
         super.onSaveInstanceState(outState)
     }
@@ -89,26 +82,25 @@ class PersonListActivity : AppCompatActivity() {
 
         // adding fake data
 //        var user = hashMapOf<String, Any>(
-//            "userId" to "2062021234",
-//            "first_name" to "Claire",
-//            "last_name" to "Roberson",
-//            "gender" to "female",
-//            "gender_pref" to "male",
-//            "location" to hashMapOf("lat" to 47.655449,"lng" to -122.307256),
-//            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062021234.jpeg?alt=media&token=0e040a5e-eaeb-4c4e-a99f-67ea0df5ce3f"
+//            "userId" to "20612347567",
+//            "first_name" to "Benjamin",
+//            "last_name" to "Black",
+//            "gender" to "male",
+//            "gender_pref" to "female",
+//            "location" to hashMapOf("lat" to 45.355223,"lng" to -121.412334),
+//            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062221001.jpeg?alt=media&token=074c1eeb-fa31-4aa2-b02f-6e4eed4668c7"
 //        )
 //        FirebaseDB().writeNewUser(user)
 //
 //        user = hashMapOf<String, Any>(
-//            "userId" to "2062221001",
-//            "first_name" to "Michael",
-//            "last_name" to "Austin",
+//            "userId" to "20612367892",
+//            "first_name" to "Mason",
+//            "last_name" to "Zhang",
 //            "gender" to "male",
 //            "gender_pref" to "female",
-//            "location" to hashMapOf("lat" to 47.632794,"lng" to -122.318786),
-//            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062221001.jpeg?alt=media&token=074c1eeb-fa31-4aa2-b02f-6e4eed4668c7")
+//            "location" to hashMapOf("lat" to 46.632794,"lng" to -121.318786),
+//            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062221002.jpeg?alt=media&token=859f5fc1-0d95-46c0-b045-858802928301")
 //        FirebaseDB().writeNewUser(user)
-
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person_list)
@@ -117,10 +109,6 @@ class PersonListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         if (findViewById<View>(R.id.person_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w592dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             this.mTwoPane = true
         }
 
@@ -133,12 +121,10 @@ class PersonListActivity : AppCompatActivity() {
                     .replace(R.id.person_detail_container, fragment)
 //                    .addToBackStack("root")
                     .commit()
-
-
             } else {
                 val arguments = Bundle()
-                val item: Person = intent.extras.getParcelable("article_item")
-                setFAB("share", "${item.headline} ${item.webUrl}")
+                val item: User = intent.extras.getParcelable("article_item")
+                setFAB("share", "${item.first_name} ${item.last_name}")
                 arguments.putParcelable("article_item", item)
                 val fragment = PersonDetailFragment()
                 fragment.arguments = arguments
@@ -146,10 +132,7 @@ class PersonListActivity : AppCompatActivity() {
                     .replace(R.id.person_detail_container, fragment)
                     .addToBackStack(null)
                     .commit()
-
             }
-
-
         } else {
 
             if (savedInstanceState != null ) {
@@ -157,7 +140,6 @@ class PersonListActivity : AppCompatActivity() {
             } else {
                 setFAB("refresh")
             }
-
         }
 
         if (savedInstanceState != null){
@@ -199,46 +181,44 @@ class PersonListActivity : AppCompatActivity() {
         }
     }
 
-
     private fun loadData(searchKey: String = "") {
-//        FirebaseDB().readUser()
-//        val data = FirebaseDB().readByGender()
-//        Log.d("db1", data.toString())
-        this.searchKey = searchKey
-        Log.v(TAG, "loading Data")
-        val API_KEY = "7e29cdaa58544b90b7dd7c63d7c1a74b"
-        val urlString = if (searchKey == ""){
-            "https://newsapi.org/v2/top-headlines?country=us&language=en&apiKey=$API_KEY"
-        } else {
-            "https://newsapi.org/v2/everything?q=$searchKey&language=en&apiKey=$API_KEY"
-        }
-
-        val request = JsonObjectRequest(Request.Method.GET, urlString, null,
-            Response.Listener { response ->
-
-                val newsList = parseNewsAPI(response)
-                val recyclerView = findViewById<View>(R.id.person_list)!!
-                setupRecyclerView(recyclerView as RecyclerView, newsList)
-
-            }, Response.ErrorListener { error -> Log.e(TAG, error.toString()) })
-        VolleyService.getInstance(this).add(request)
+        // read data from firebase
+        readUserByGender("female")
+//        this.searchKey = searchKey
+//        Log.v(TAG, "loading Data")
+//
+//        val API_KEY = "7e29cdaa58544b90b7dd7c63d7c1a74b"
+//        val urlString = if (searchKey == ""){
+//            "https://newsapi.org/v2/top-headlines?country=us&language=en&apiKey=$API_KEY"
+//        } else {
+//            "https://newsapi.org/v2/everything?q=$searchKey&language=en&apiKey=$API_KEY"
+//        }
+//
+//        val request = JsonObjectRequest(Request.Method.GET, urlString, null,
+//            Response.Listener { response ->
+//
+//                val newsList = parseNewsAPI(response)
+//                val recyclerView = findViewById<View>(R.id.person_list)!!
+//                setupRecyclerView(recyclerView as RecyclerView, newsList)
+//
+//            }, Response.ErrorListener { error -> Log.e(TAG, error.toString()) })
+//        VolleyService.getInstance(this).add(request)
     }
 
-
-    private fun setupRecyclerView(recyclerView: RecyclerView, newsList: List<Person>) {
+    private fun setupRecyclerView(recyclerView: RecyclerView, newsList: List<User>) {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, newsList, mTwoPane)
         val spanCount = if (this.mTwoPane) 1 else 2
         recyclerView.layoutManager = GridLayoutManager(this, spanCount)
     }
 
     private inner class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActivity: PersonListActivity,
-                                                                           private val mValues: List<Person>,
+                                                                           private val mValues: List<User>,
                                                                            private val mTwoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         private val showDetail = View.OnClickListener { view ->
-            val item = view.tag as Person
+            val item = view.tag as User
             if (mTwoPane) {
                 val arguments = Bundle()
-                setFAB("share", "${item.headline} ${item.webUrl}")
+                setFAB("share", "${item.first_name} ${item.last_name}")
                 arguments.putParcelable("article_item", item)
                 val fragment = PersonDetailFragment()
                 fragment.arguments = arguments
@@ -271,15 +251,15 @@ class PersonListActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.mIdView.text = mValues[position].headline
+            holder.mIdView.text = mValues[position].first_name
 //            holder.mContentView.text = mValues[position].description
 
             holder.itemView.tag = mValues[position]
             holder.itemView.setOnClickListener(showDetail)
             holder.mImageView.setDefaultImageResId(R.drawable.profile_picture_placeholder)
 
-            if (mValues[position].imageUrl != null) {
-                holder.mImageView.setImageUrl(mValues[position].imageUrl, VolleyService.getInstance(mParentActivity).imageLoader)
+            if (mValues[position].profile_picture != null) {
+                holder.mImageView.setImageUrl(mValues[position].profile_picture, VolleyService.getInstance(mParentActivity).imageLoader)
             }
         }
 
@@ -296,72 +276,53 @@ class PersonListActivity : AppCompatActivity() {
     }
 
     @Parcelize
-    data class Person(
-        val headline:String,
-        val description:String,
-        val publishedTime:Long,
-        val webUrl:String,
-        val imageUrl:String?,
-        val sourceId:String,
-        val sourceName: String
+    data class User(
+        val first_name:String,
+        val last_name:String,
+        val gender:String,
+        val gender_pref:String,
+        val location: MutableMap<String, Double> = mutableMapOf(),
+        val profile_picture: String
     ) : Parcelable
 
+    var currentUsers = mutableListOf<User>()
 
-    /**
-     * Parses the query response from the News API aggregator
-     * https://newsapi.org/
-     */
-    private fun parseNewsAPI(response: JSONObject):List<Person> {
-
-        val NEWS_ARTICLE_TAG = "Person"
-
-        val stories = mutableListOf<Person>()
-
-        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-
-        try {
-            val jsonArticles = response.getJSONArray("articles") //response.articles
-
-            for (i in 0 until Math.min(jsonArticles.length(), 20)) { //stop at 20
-                val articleItemObj = jsonArticles.getJSONObject(i)
-
-                //handle image url
-                var imageUrl:String? = articleItemObj.getString("urlToImage")
-                if (imageUrl == "null" || !URLUtil.isValidUrl(imageUrl)) {
-                    imageUrl = null //make actual null value
+    fun readUserByGender(gender: String) {
+        db.collection("users")
+            .whereEqualTo("gender", gender)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, document.id + " => " + document.data)
+                    currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
+                        document.get("gender").toString(), document.get("gender_pref").toString(),
+                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString()))
                 }
+                val recyclerView = findViewById<View>(R.id.person_list)!!
+                setupRecyclerView(recyclerView as RecyclerView, currentUsers)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+    }
 
-                //handle date
-                val publishedTime = try {
-                    val pubDateString = articleItemObj.getString("publishedAt")
-                    if(pubDateString != "null")
-                        formatter.parse(pubDateString).time
-                    else
-                        0L //return 0
-                } catch (e: ParseException) {
-                    Log.e(NEWS_ARTICLE_TAG, "Error parsing date", e) //Android log the error
-                    0L //return 0
+    fun readUserById(userId : String) {
+        val docRef = db.collection("users").document(userId)
+        docRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document!!.exists()) {
+                    Log.d(TAG, "User data: " + document.data!!)
+                    currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
+                        document.get("gender").toString(), document.get("gender_pref").toString(),
+                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString()))
+
+                } else {
+                    Log.d(TAG, "No such user")
                 }
-
-                //access source
-                val sourceObj = articleItemObj.getJSONObject("source")
-
-                val story = Person(
-                    headline = articleItemObj.getString("title"),
-                    webUrl = articleItemObj.getString("url"),
-                    description = articleItemObj.getString("description"),
-                    imageUrl = imageUrl,
-                    publishedTime = publishedTime,
-                    sourceId = sourceObj.getString("id"),
-                    sourceName = sourceObj.getString("name")
-                )
-
-                stories.add(story)
-            } //end for loop
-        } catch (e: JSONException) {
-            Log.e(NEWS_ARTICLE_TAG, "Error parsing json", e) //Android log the error
+            } else {
+                Log.d(TAG, "get failed with ", task.exception)
+            }
         }
-
-        return stories
     }
 }

@@ -23,7 +23,6 @@ class PersonDetailFragment : Fragment() {
         fun setupToolbar()
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -31,23 +30,21 @@ class PersonDetailFragment : Fragment() {
             setUpToolBar = context as HasCollapsibleToolbar
         }
 
-
         val rootView = inflater.inflate(R.layout.person_detail, container, false)
 
-        val articleItem = arguments!!.getParcelable<PersonListActivity.Person>(ARTICLE_PARCEL_KEY)
+        val user = arguments!!.getParcelable<PersonListActivity.User>(USER_PARCEL_KEY)
 
         (rootView.findViewById<View>(R.id.person_heading) as TextView).text =
-                if (articleItem.headline == "null") "No heading" else articleItem.headline
+                if (user.first_name == "null") "first_name" else user.first_name
 
         (rootView.findViewById<View>(R.id.person_detail) as TextView).text =
-                if (articleItem.description == "null") "No description." else articleItem.description
+                if (user.last_name == "null") "last_name." else user.last_name
 
         (rootView.findViewById<View>(R.id.person_source) as TextView).text =
-                if (articleItem.sourceName == "null") "No source" else "Source: ${articleItem.sourceName}"
+                if (user.gender == "null") "No source" else "${user.gender}"
 
         val source = (rootView.findViewById<View>(R.id.person_source_link) as TextView)
-        source.text = if (articleItem.webUrl == "null") "" else articleItem.webUrl
-
+        source.text = if (user.gender_pref == "null") "" else user.gender_pref
 
         setUpToolBar?.setupToolbar()
 
@@ -56,14 +53,12 @@ class PersonDetailFragment : Fragment() {
 
     companion object {
 
-        val TAG = "MainActivity"
+        val USER_PARCEL_KEY = "user"
 
-        val ARTICLE_PARCEL_KEY = "article_item"
-
-        fun newInstance(news: PersonListActivity.Person):  PersonDetailFragment {
+        fun newInstance(news: PersonListActivity.User):  PersonDetailFragment {
 
             val args = Bundle()
-            args.putParcelable(ARTICLE_PARCEL_KEY, news)
+            args.putParcelable(USER_PARCEL_KEY, news)
             val fragment = PersonDetailFragment()
             fragment.arguments = args
             return fragment

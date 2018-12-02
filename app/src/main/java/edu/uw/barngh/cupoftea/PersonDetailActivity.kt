@@ -44,7 +44,6 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person_detail)
 
-
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
@@ -57,8 +56,8 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
 
         if (savedInstanceState == null){
 
-            val articleItem: PersonListActivity.Person = intent.extras!!.getParcelable("article_item")!!
-            this.shareText = articleItem.headline + articleItem.webUrl
+            val articleItem: PersonListActivity.User = intent.extras!!.getParcelable("article_item")!!
+            this.shareText = articleItem.first_name + articleItem.last_name
             val detailFragment = PersonDetailFragment.newInstance(articleItem)
             supportFragmentManager.beginTransaction()
                 .add(R.id.person_detail_container, detailFragment)
@@ -67,30 +66,25 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
 
             val detailImage = findViewById<NetworkImageView>(R.id.detail_image)
             detailImage.setDefaultImageResId(R.drawable.profile_picture_placeholder)
-            if (articleItem.imageUrl != null) {
+            if (articleItem.profile_picture!= null) {
                 detailImage.setImageUrl(
-                    articleItem.imageUrl,
+                    articleItem.profile_picture,
                     VolleyService.getInstance(this).imageLoader
                 )
             }
         }
         else {
-            val articleItem: PersonListActivity.Person = intent.extras!!.getParcelable("article_item")!!
+            val articleItem: PersonListActivity.User = intent.extras!!.getParcelable("article_item")!!
             val context = this
             val intent = Intent(context, PersonListActivity::class.java)
 //                context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this@NewsArticleListActivity).toBundle())
 //                val detailImage = findViewById<NetworkImageView>(R.id.detail_image)
             val listImage = findViewById<NetworkImageView>(R.id.list_image)
-
 //                val p1 = utilPair.create<View?, String?>(detail_image, "article_image")
 //                val p2 = utilPair.create<View?, String?>(list_image, "article_image")
-
             intent.putExtra("article_item", articleItem)
             startActivity(intent)
-
-
         }
-
     }
 
 //    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
