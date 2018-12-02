@@ -39,41 +39,6 @@ class PersonListActivity : AppCompatActivity() {
     private var DEFAULT_GENDER = "female"
     var db = FirebaseFirestore.getInstance()
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the options menu from XML
-//        val inflater = menuInflater
-//        inflater.inflate(R.menu.menu, menu)
-//        // Get the SearchView and set the searchable configuration
-//        val searchView = menu.findItem(R.id.search).actionView as android.support.v7.widget.SearchView
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextChange(newText: String): Boolean {
-//                return false
-//            }
-//            override fun onQueryTextSubmit(query: String): Boolean {
-//                //Log.v(TAG, searchView.query.toString())
-//
-//                loadData(searchView.query.toString())
-//                return false
-//            }
-//        })
-//        val expandListener = object : MenuItem.OnActionExpandListener {
-//            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-//                Log.v(TAG, "collapsed!")
-//                loadData()
-//                // Do something when action item collapses
-//                return true // Return true to collapse action view
-//            }
-//
-//            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-//                // Do something when expanded
-//                Log.v(TAG, "expaneded!")
-//                return true // Return true to expand action view
-//            }
-//        }
-//        val searchMenuItem = menu.findItem(R.id.search)
-//        searchMenuItem.setOnActionExpandListener(expandListener)
-//        return true
-//    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString("searchKey", searchKey)
@@ -225,9 +190,6 @@ class PersonListActivity : AppCompatActivity() {
 //                context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this@PersonListActivity).toBundle())
 //                val detailImage = findViewById<NetworkImageView>(R.id.detail_image)
                 val listImage = findViewById<NetworkImageView>(R.id.list_image)
-
-//                val p1 = utilPair.create<View?, String?>(detail_image, "article_image")
-//                val p2 = utilPair.create<View?, String?>(list_image, "article_image")
 
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@PersonListActivity, view.findViewById(R.id.list_image), "article_image")
 

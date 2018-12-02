@@ -74,20 +74,14 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
             val articleItem: PersonListActivity.User = intent.extras!!.getParcelable("article_item")!!
             val context = this
             val intent = Intent(context, PersonListActivity::class.java)
-//                context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this@NewsArticleListActivity).toBundle())
-//                val detailImage = findViewById<NetworkImageView>(R.id.detail_image)
+
             val listImage = findViewById<NetworkImageView>(R.id.list_image)
-//                val p1 = utilPair.create<View?, String?>(detail_image, "article_image")
-//                val p2 = utilPair.create<View?, String?>(list_image, "article_image")
+
             intent.putExtra("article_item", articleItem)
             startActivity(intent)
         }
     }
 
-//    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-//        outState.putString("searchKey", 'l')
-//        super.onSaveInstanceState(outState, outPersistentState)
-//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
