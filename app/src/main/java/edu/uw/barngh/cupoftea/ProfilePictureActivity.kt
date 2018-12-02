@@ -23,6 +23,7 @@ import com.google.firebase.storage.UploadTask
 
 class ProfilePictureActivity : AppCompatActivity() {
     private val CAMERA_RESPONSE_CODE = 1
+    private val OPEN_DOCUMENT_CODE = 2
 
     private val storage = FirebaseStorage.getInstance()
 
@@ -48,75 +49,106 @@ class ProfilePictureActivity : AppCompatActivity() {
 
     }
 
+    fun fromAlbum(v: View?) {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        startActivityForResult(intent, OPEN_DOCUMENT_CODE)
+
+    }
+
+    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap {
+        var width = image.width
+        var height = image.height
+
+        val bitmapRatio = width.toFloat() / height.toFloat()
+        if (bitmapRatio > 1) {
+            width = maxSize
+            height = (width / bitmapRatio).toInt()
+        } else {
+            height = maxSize
+            width = (height * bitmapRatio).toInt()
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, imageData: Intent?) {
-        if (requestCode == CAMERA_RESPONSE_CODE && resultCode == Activity.RESULT_OK) {
-
-            // Create a storage reference from our app
-            val storageRef = storage.reference
-
-            val filename = "2062134059"
-            val ref = storageRef.child("profile_pics/$filename.jpg")
-//            val mountainImagesRef =
-
-// While the file names are the same, the references point to different files
-//            mountainsRef.name == mountainImagesRef.name    // true
-//            mountainsRef.path == mountainImagesRef.path    // false
+        if (requestCode == CAMERA_RESPONSE_CODE || requestCode == OPEN_DOCUMENT_CODE && resultCode == Activity.RESULT_OK) {
 
 
-            // do some thing with data
-            val bitmap = imageData!!.extras.get("data") as Bitmap
-
-
-
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-
-            val data = baos.toByteArray()
-
-            val uploadTask = ref.putBytes(data)
-                .addOnFailureListener {
-                    // Handle unsuccessful uploads
-                    Toast.makeText(this, "Upload Failed", Toast.LENGTH_LONG).show()
+            var bitmap = if (requestCode == CAMERA_RESPONSE_CODE) {
+                if (imageData!!.extras == null) {
+                    null
+                } else {
+                    imageData!!.extras.get("data") as Bitmap
                 }
+
+            } else {
+                getResizedBitmap(MediaStore.Images.Media.getBitmap(this.contentResolver, imageData!!.data), 200)
+            }
+            if (bitmap != null) {
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+
+                val data = baos.toByteArray()
+
+                // Create a storage reference from our app
+                val storageRef = storage.reference
+
+                val filename = "2062134059"
+                val ref = storageRef.child("profile_pics/$filename.jpg")
+
+
+
+                Toast.makeText(this, "Uploading....", Toast.LENGTH_SHORT).show()
+
+                val uploadTask = ref.putBytes(data)
+                    .addOnFailureListener {
+                        // Handle unsuccessful uploads
+                        Toast.makeText(this, "Upload Failed", Toast.LENGTH_LONG).show()
+                    }
 //                .addOnSuccessListener {
 //
 //                }
 
 
-            val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
-                if (!task.isSuccessful) {
-                    task.exception?.let {
-                        throw it
+                val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
                     }
+                    return@Continuation ref.downloadUrl
+                }).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val downloadUri = task.result
+                            val settings = PreferenceManager.getDefaultSharedPreferences(this)
+                            val editor = settings.edit()
+                            editor.putString(R.string.key_profile_picture.toString(), downloadUri.toString())
+                            editor.apply()
+
+
+                            val imageView = findViewById<ImageView>(R.id.img_thumbnail)
+                            imageView.setImageBitmap(bitmap)
+                            Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
+
+    //                    Log.v("profile_pic", "Profile pic url from preference: " + settings.getString(R.string.key_profile_picture.toString(), ""))
+                            // can put it in shared pref
+    //                    Log.v("profile_pic", downloadUri.toString())
+
+                        } else {
+                            Toast.makeText(this, "Upload Failed", Toast.LENGTH_SHORT).show()
+                            // Handle failures
+                            // ...
+                        }
+
+                    }
+
                 }
-                return@Continuation ref.downloadUrl
-            }).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val downloadUri = task.result
-                    val settings = PreferenceManager.getDefaultSharedPreferences(this)
-                    val editor = settings.edit()
-                    editor.putString(R.string.key_profile_picture.toString(), downloadUri.toString())
-                    editor.apply()
-
-
-
-                    val imageView = findViewById<ImageView>(R.id.img_thumbnail)
-                    imageView.setImageBitmap(bitmap)
-                    Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
-
-                    Log.v("profile_pic", "Profile pic url from preference: " + settings.getString(R.string.key_profile_picture.toString(), ""))
-                    // can put it in shared pref
-//                    Log.v("profile_pic", downloadUri.toString())
-
-                } else {
-                    // Handle failures
-                    // ...
-                }
-            }
-
         }
 
-        super.onActivityResult(requestCode, resultCode, imageData)
+            super.onActivityResult(requestCode, resultCode, imageData)
+
     }
 
 

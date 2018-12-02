@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".AgeActivity">
         </activity>
-        <activity android:name=".ProfilePictureActivity">
+        <activity android:name=".ProfilePictureActivity"
+                  android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".GenderActivity">
         </activity>
