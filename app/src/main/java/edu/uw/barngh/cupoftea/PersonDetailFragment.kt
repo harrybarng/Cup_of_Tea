@@ -34,6 +34,7 @@ class PersonDetailFragment : Fragment() {
 
         val user = arguments!!.getParcelable<PersonListActivity.User>(USER_PARCEL_KEY)
 
+        //TODO: need to be modified to be USER INFO
         (rootView.findViewById<View>(R.id.person_heading) as TextView).text =
                 if (user.first_name == "null") "first_name" else user.first_name
 

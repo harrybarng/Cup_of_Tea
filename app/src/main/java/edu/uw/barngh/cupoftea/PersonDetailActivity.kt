@@ -63,7 +63,6 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
                 .add(R.id.person_detail_container, detailFragment)
                 .commit()
 
-
             val detailImage = findViewById<NetworkImageView>(R.id.detail_image)
             detailImage.setDefaultImageResId(R.drawable.profile_picture_placeholder)
             if (articleItem.profile_picture!= null) {

@@ -9,11 +9,9 @@ import android.support.v7.widget.RecyclerView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
-import android.webkit.URLUtil
 import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.Response
@@ -183,26 +181,8 @@ class PersonListActivity : AppCompatActivity() {
 
     private fun loadData(searchKey: String = "") {
         // read data from firebase
+        // TODO: need to changed to be user preference
         readUserByGender("female")
-//        this.searchKey = searchKey
-//        Log.v(TAG, "loading Data")
-//
-//        val API_KEY = "7e29cdaa58544b90b7dd7c63d7c1a74b"
-//        val urlString = if (searchKey == ""){
-//            "https://newsapi.org/v2/top-headlines?country=us&language=en&apiKey=$API_KEY"
-//        } else {
-//            "https://newsapi.org/v2/everything?q=$searchKey&language=en&apiKey=$API_KEY"
-//        }
-//
-//        val request = JsonObjectRequest(Request.Method.GET, urlString, null,
-//            Response.Listener { response ->
-//
-//                val newsList = parseNewsAPI(response)
-//                val recyclerView = findViewById<View>(R.id.person_list)!!
-//                setupRecyclerView(recyclerView as RecyclerView, newsList)
-//
-//            }, Response.ErrorListener { error -> Log.e(TAG, error.toString()) })
-//        VolleyService.getInstance(this).add(request)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, newsList: List<User>) {
