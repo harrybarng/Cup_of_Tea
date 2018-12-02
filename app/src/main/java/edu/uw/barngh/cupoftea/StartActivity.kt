@@ -12,7 +12,8 @@ class StartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_start)
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            val intent = Intent(this, NameActivity::class.java)
+//            val intent = Intent(this, NameActivity::class.java)
+            val intent = Intent(this, PersonListActivity::class.java)
             this.startActivity(intent)
         }
     }

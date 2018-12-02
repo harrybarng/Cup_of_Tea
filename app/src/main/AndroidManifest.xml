@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.uw.barngh.cupoftea">
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -22,13 +22,25 @@
         </activity>
         <activity android:name=".ProfilePictureActivity">
         </activity>
-        <activity
-                android:name=".GenderActivity">
+        <activity android:name=".GenderActivity">
         </activity>
-        <activity
-                android:name=".GenderInterestActivity">
+        <activity android:name=".GenderInterestActivity">
         </activity>
         <activity android:name=".InterestAcitivity">
+        </activity>
+        <activity
+                android:name=".PersonListActivity"
+                android:label="@string/title_person_list"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity
+                android:name=".PersonDetailActivity"
+                android:label="@string/title_person_detail"
+                android:parentActivityName=".PersonListActivity"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="edu.uw.barngh.cupoftea.PersonListActivity"/>
         </activity>
     </application>
 
