@@ -1,6 +1,7 @@
 package edu.uw.barngh.cupoftea
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -20,6 +21,7 @@ class AgeActivity : AppCompatActivity() {
     private var year : Int = Calendar.YEAR
     private var month : Int = Calendar.MONTH
     private var dayofMonth : Int = Calendar.DAY_OF_MONTH
+    var selected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,8 @@ class AgeActivity : AppCompatActivity() {
                     year = mYear
                     month = mMonth
                     dayofMonth = mDay
+                    selected = true
+                    findViewById<Button>(R.id.bt_get_started).background = getDrawable(R.drawable.bt_rounded)
                 }, year, month, dayofMonth
             )
             dialog.datePicker.minDate = cal.timeInMillis - (31536000000*100)
@@ -50,9 +54,28 @@ class AgeActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            val intent = Intent(this, GenderActivity::class.java)
-//            val intent = Intent(this, ProfilePictureActivity::class.java)
-            this.startActivity(intent)
+            if(selected) {
+                var sharedPref = this.getSharedPreferences(
+                    getString(R.string.key_user_birthday),
+                    Context.MODE_PRIVATE
+                )
+                sharedPref.edit().putString(getString(R.string.key_user_birthday), dayofMonth.toString()).commit()
+
+                sharedPref = this.getSharedPreferences(
+                    getString(R.string.key_user_birthmonth),
+                    Context.MODE_PRIVATE
+                )
+                sharedPref.edit().putString(getString(R.string.key_user_birthmonth), month.toString()).commit()
+
+                sharedPref = this.getSharedPreferences(
+                    getString(R.string.key_user_birthyear),
+                    Context.MODE_PRIVATE
+                )
+                sharedPref.edit().putString(getString(R.string.key_user_birthyear), year.toString()).commit()
+
+                val intent = Intent(this, GenderActivity::class.java)
+                this.startActivity(intent)
+            }
         }
     }
 }
