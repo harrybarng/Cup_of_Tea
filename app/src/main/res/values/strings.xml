@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Cup of Tea</string>
     <string name="setup">Setup</string>
+    <string name="key_profile_picture">profile_pic_url</string>
+    <string name="key_user_name">USERNAME</string>
+    <string name="key_user_birthday">BIRTHDATE</string>
+    <string name="key_user_gender">GENDER</string>
+    <string name="key_user_interested_gender">GENDERINTERESTED</string>
+    <string name="key_interests">INTERESTS</string>
+    <string name="key_summary">SUMMARY</string>
 </resources>

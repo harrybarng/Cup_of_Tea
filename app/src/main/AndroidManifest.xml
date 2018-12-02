@@ -30,6 +30,8 @@
         </activity>
         <activity android:name=".InterestAcitivity">
         </activity>
+        <activity android:name=".SummaryActivity">
+        </activity>
     </application>
 
 </manifest>
