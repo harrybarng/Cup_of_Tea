@@ -95,7 +95,7 @@ class ProfilePictureActivity : AppCompatActivity() {
                     val downloadUri = task.result
                     val settings = PreferenceManager.getDefaultSharedPreferences(this)
                     val editor = settings.edit()
-                    editor.putString("profile_pic_url", downloadUri.toString())
+                    editor.putString(R.string.key_profile_picture.toString(), downloadUri.toString())
                     editor.apply()
 
 
@@ -104,7 +104,7 @@ class ProfilePictureActivity : AppCompatActivity() {
                     imageView.setImageBitmap(bitmap)
                     Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
 
-                    Log.v("profile_pic", "Profile pic url from preference: " + settings.getString("profile_pic_url", ""))
+                    Log.v("profile_pic", "Profile pic url from preference: " + settings.getString(R.string.key_profile_picture.toString(), ""))
                     // can put it in shared pref
 //                    Log.v("profile_pic", downloadUri.toString())
 

@@ -35,46 +35,54 @@
             android:textSize="24sp"/>
 
     <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="100dp"
-            android:background="@drawable/interest_select"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:background="@drawable/bc_interest"
             android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <CheckBox
-                    android:id="@+id/hiking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hiking"/>
-            <CheckBox
-                    android:id="@+id/movie"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Movie"/>
-            <CheckBox
-                    android:id="@+id/Eating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Eating"/>
-            <CheckBox
-                    android:id="@+id/Gaming"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gaming"/>
-            <CheckBox
-                    android:id="@+id/Cuddling"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cuddling"/>
-            <CheckBox
-                    android:id="@+id/Cooking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cooking"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <CheckBox
+                        android:id="@+id/hiking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hiking"/>
+                <CheckBox
+                        android:id="@+id/movie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Movie"/>
+                <CheckBox
+                        android:id="@+id/eating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Eating"/>
+                <CheckBox
+                        android:id="@+id/gaming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gaming"/>
+                <CheckBox
+                        android:id="@+id/cuddling"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cuddling"/>
+                <CheckBox
+                        android:id="@+id/cooking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cooking"/>
+        </LinearLayout>
     </LinearLayout>
 
 
@@ -88,7 +96,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:textColor="#FFFFFF"
-            android:background="@drawable/bt_rounded"
+            android:background="@drawable/bt_rounded_unavailable"
             android:textSize="24sp"
             android:textAllCaps="false"
             android:layout_marginBottom="56dp"/>

@@ -16,5 +16,7 @@ class StartActivity : AppCompatActivity() {
             val intent = Intent(this, PersonListActivity::class.java)
             this.startActivity(intent)
         }
+        
+
     }
 }

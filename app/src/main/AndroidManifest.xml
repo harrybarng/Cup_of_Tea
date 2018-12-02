@@ -41,6 +41,7 @@
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="edu.uw.barngh.cupoftea.PersonListActivity"/>
+        <activity android:name=".SummaryActivity">
         </activity>
     </application>
 

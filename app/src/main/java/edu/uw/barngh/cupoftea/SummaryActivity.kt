@@ -11,32 +11,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import edu.uw.barngh.cupoftea.R
-import org.w3c.dom.Text
+import java.io.File
 
-class NameActivity : AppCompatActivity() {
+class SummaryActivity : AppCompatActivity() {
 
-    var name = false
+    var next = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_name)
+        setContentView(R.layout.activity_summary)
 
-        // PLEASE DELETE ME, just for testing
-        // test write new newer
-//        val DB = FirebaseDB()
-//        val user = HashMap<String, Any>()
-//        user["userId"] = "monica"
-//        user["first"] = "Monica"
-//        user["last"] = "Ma"
-//        user["email"] = "gmail.com"
-//        DB.writeNewUser(user)
-//        Log.v("newDB", "loading db")
-//        // test read from database
-//        var userId = user["userId"]
-//        DB.readUser(userId as String)
-//        Log.v("newDB", "loading user's data")
-
-        var text = findViewById<EditText>(R.id.user_name)
+        var text = findViewById<EditText>(R.id.summary)
 
         text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -64,25 +49,27 @@ class NameActivity : AppCompatActivity() {
         }
 
         text.afterTextChanged { it ->
-            findViewById<TextView>(R.id.char_counter).text = "${it.length}/20"
-            if(it.length > 0 && it.length <= 20){
-                findViewById<Button>(R.id.bt_get_started).background = getDrawable(R.drawable.bt_rounded)
-                name = true
-            }else{
-                name = false
+            findViewById<TextView>(R.id.char_counter).text = "${it.length}/175"
+            if(it.length > 175){
                 findViewById<Button>(R.id.bt_get_started).background = getDrawable(R.drawable.bt_rounded_unavailable)
-            }
-        }
+                next = false
+            }else if(it.length == 0){
+                findViewById<Button>(R.id.bt_get_started).text = "Skip"
+                next = false
+            }else{
+                findViewById<Button>(R.id.bt_get_started).background = getDrawable(R.drawable.bt_rounded)
+                findViewById<Button>(R.id.bt_get_started).text = "Next"
+                next = true
+            }}
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-
-            if(name) {
-                var store = findViewById<EditText>(R.id.user_name).text.toString()
+            //            val intent = Intent(this, AgeActivity::class.java)
+            if(next) {
                 val sharedPref = this.getSharedPreferences(
-                    getString(R.string.key_user_name),
+                    getString(R.string.key_summary),
                     Context.MODE_PRIVATE
                 )
-                sharedPref.edit().putString(getString(R.string.key_user_name), store).commit()
+                sharedPref.edit().putString(getString(R.string.key_summary), findViewById<EditText>(R.id.summary).text.toString()).commit()
                 val intent = Intent(this, ProfilePictureActivity::class.java)
                 this.startActivity(intent)
             }
