@@ -85,6 +85,9 @@ class UploadActivity : AppCompatActivity() {
 
 
         val userId = "oh, just testing"
+        user["userId"] = userId
+
+        Log.d("tag1", "$user")
         db.collection("users").document(userId)
             .set(user)
             .addOnSuccessListener { documentReference ->
