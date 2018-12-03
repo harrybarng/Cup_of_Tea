@@ -56,8 +56,8 @@ class StartActivity : AppCompatActivity() {
         }
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
-                Log.v(TAG, "last Location")
-                Log.v(TAG, "${location!!.longitude}, ${location!!.latitude}")
+//                Log.v(TAG, "last Location")
+//                Log.v(TAG, "${location!!.longitude}, ${location!!.latitude}")
                 mCurrentLocation = location
 //                mapFragment.getMapAsync(this)
 
