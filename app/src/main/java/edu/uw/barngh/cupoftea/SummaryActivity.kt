@@ -70,7 +70,7 @@ class SummaryActivity : AppCompatActivity() {
                     Context.MODE_PRIVATE
                 )
                 sharedPref.edit().putString(getString(R.string.key_summary), findViewById<EditText>(R.id.summary).text.toString()).commit()
-                val intent = Intent(this, ProfilePictureActivity::class.java)
+                val intent = Intent(this, PersonListActivity::class.java)
                 this.startActivity(intent)
             }
         }

@@ -6,9 +6,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class FirebaseDB {
 
-    private var TAG = "database"
+    private var TAG = "database1"
 
     var db = FirebaseFirestore.getInstance()
+
+    var currentData = mutableListOf<MutableMap<String,Any>>()
 
     fun writeNewUser(user: HashMap<String, Any>) {
 
@@ -39,4 +41,5 @@ class FirebaseDB {
             }
         }
     }
+
 }

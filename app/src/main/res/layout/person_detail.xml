@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+>
+
+    <ScrollView
+            android:id="@+id/ScrollView01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+        >
+
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:id="@+id/person_heading"
+                      style="@style/TextAppearance.MaterialComponents.Headline5"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="heading"
+                      android:textIsSelectable="true"
+                      android:fillViewport="true"
+                      tools:context=".personDetailFragment"
+            />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:id="@+id/person_detail"
+                      style="@style/TextAppearance.MaterialComponents.Body1"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginBottom="20dp"
+                      android:text="content"
+                      android:textIsSelectable="true"
+                      tools:context=".personDetailFragment" />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:id="@+id/person_source"
+                      style="@style/TextAppearance.MaterialComponents.Body2"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="source"
+                      android:textIsSelectable="true"
+                      tools:context=".personDetailFragment" />
+
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:id="@+id/person_source_link"
+                      style="@style/TextAppearance.MaterialComponents.Body2"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="source"
+                      android:autoLink="web"
+                      android:textIsSelectable="true"
+                      tools:context=".personDetailFragment" />
+
+
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:layout_width="match_parent"
+                      android:layout_height="80dp"
+                      android:text=""
+                      tools:context=".personDetailFragment" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

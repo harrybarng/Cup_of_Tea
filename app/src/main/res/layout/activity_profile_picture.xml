@@ -43,11 +43,27 @@
 
 
         <ImageButton
+                android:layout_margin="10dp"
                 android:id="@+id/btn_picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@android:drawable/ic_menu_camera"
                 android:onClick="takePicture"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bt_rounded"
+                android:backgroundTint="@color/colorPrimary"
+        />
+
+        <ImageButton
+                android:layout_margin="10dp"
+                android:id="@+id/btn_album"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:onClick="fromAlbum"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bt_rounded"
+                android:backgroundTint="@color/colorPrimary"
         />
     </LinearLayout>
 
@@ -58,6 +74,7 @@
             android:layout_height="0dp"
             android:layout_margin="40dp"
             android:layout_weight="1"
+
             android:src="@drawable/profile_picture_placeholder"
     />
 

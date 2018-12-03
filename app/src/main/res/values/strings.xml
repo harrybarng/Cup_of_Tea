@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Cup of Tea</string>
     <string name="setup">Setup</string>
+    <string name="title_person_list">Persons</string>
+    <string name="title_person_detail">Person Detail</string>
     <string name="key_profile_picture">profile_pic_url</string>
     <string name="key_user_name">USERNAME</string>
     <string name="key_user_birthday">BIRTHDAY</string>

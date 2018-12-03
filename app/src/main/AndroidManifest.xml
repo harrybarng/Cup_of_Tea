@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
             android:allowBackup="true"
@@ -23,18 +24,33 @@
         </activity>
         <activity android:name=".AgeActivity">
         </activity>
-        <activity android:name=".ProfilePictureActivity">
+        <activity android:name=".ProfilePictureActivity"
+                  android:screenOrientation="portrait" >
         </activity>
-        <activity
-                android:name=".GenderActivity">
+        <activity android:name=".GenderActivity">
         </activity>
-        <activity
-                android:name=".GenderInterestActivity">
+        <activity android:name=".GenderInterestActivity">
         </activity>
         <activity android:name=".InterestAcitivity">
         </activity>
+        <activity
+                android:name=".PersonListActivity"
+                android:label="@string/title_person_list"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity
+                android:name=".PersonDetailActivity"
+                android:label="@string/title_person_detail"
+                android:parentActivityName=".PersonListActivity"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="edu.uw.barngh.cupoftea.PersonListActivity"/>
+        </activity>
+
         <activity android:name=".SummaryActivity">
         </activity>
+
     </application>
 
 </manifest>
