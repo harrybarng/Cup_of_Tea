@@ -211,9 +211,11 @@ class PersonListActivity : AppCompatActivity() {
         val gender_pref:String,
         val location: MutableMap<String, Double> = mutableMapOf(),
         val profile_picture: String,
-        val summary: String
+        val summary: String,
+        val interests: String
 
-    ) : Parcelable
+
+        ) : Parcelable
 
     var currentUsers = mutableListOf<User>()
 
@@ -237,7 +239,7 @@ class PersonListActivity : AppCompatActivity() {
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
                         age, document.get("gender").toString(), document.get("gender_pref").toString(),
                         document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
-                        document.get("summary").toString()))
+                        document.get("summary").toString(), document.get("interests").toString() ))
                 }
                 val recyclerView = findViewById<View>(R.id.person_list)!!
                 setupRecyclerView(recyclerView as RecyclerView, currentUsers)
@@ -259,7 +261,7 @@ class PersonListActivity : AppCompatActivity() {
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
                         age, document.get("gender").toString(), document.get("gender_pref").toString(),
                         document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
-                        document.get("summary").toString()))
+                        document.get("summary").toString(), document.get("interests").toString()))
 
                 } else {
                     Log.d(TAG, "No such user")

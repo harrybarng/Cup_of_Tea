@@ -77,7 +77,7 @@ class InterestAcitivity : AppCompatActivity() {
                     if(checker[i] != ""){
                         interestString += checker[i]
                         if(counter < 2){
-                            interestString += ","
+                            interestString += ", "
                         }
                         counter++
                     }

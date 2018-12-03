@@ -36,16 +36,16 @@ class PersonDetailFragment : Fragment() {
         Log.d("tag1", "${(arguments == null)}")
         val user = arguments!!.getParcelable<PersonListActivity.User>(USER_PARCEL_KEY)
 
-        (rootView.findViewById<View>(R.id.person_heading) as TextView).text =
+        (rootView.findViewById<View>(R.id.person_name) as TextView).text =
                 if (user.first_name == "null") "first_name" else user.first_name
 
-        (rootView.findViewById<View>(R.id.person_detail) as TextView).text =
+        (rootView.findViewById<View>(R.id.person_age) as TextView).text =
                 if (user.age == null) "age" else "Age: ${user.age}"
 
-        (rootView.findViewById<View>(R.id.person_source) as TextView).text =
-                if (user.gender == "null") "No source" else "My self-summary:"
+        (rootView.findViewById<View>(R.id.person_interests) as TextView).text =
+                if (user.gender == "null") "" else "Interests: ${user.interests}"
 
-        val summary = (rootView.findViewById<View>(R.id.person_source_link) as TextView)
+        val summary = (rootView.findViewById<View>(R.id.person_summary) as TextView)
         summary.text = if (user.summary == "null") "" else user.summary
 
         setUpToolBar?.setupToolbar()

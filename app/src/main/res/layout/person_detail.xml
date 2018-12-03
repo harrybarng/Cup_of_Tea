@@ -23,31 +23,41 @@
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_heading"
+                      android:id="@+id/person_name"
                       style="@style/TextAppearance.MaterialComponents.Headline5"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="heading"
+                      android:text="Name"
                       android:textIsSelectable="true"
                       android:fillViewport="true"
                       tools:context=".personDetailFragment"
             />
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:id="@+id/person_summary"
+                      style="@style/TextAppearance.MaterialComponents.Body2"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="source"
+                      android:textIsSelectable="true"
+                      tools:context=".personDetailFragment" />
+
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_detail"
+                      android:id="@+id/person_age"
                       style="@style/TextAppearance.MaterialComponents.Body1"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="20dp"
                       android:layout_marginBottom="20dp"
-                      android:text="content"
+                      android:text="Age"
                       android:textIsSelectable="true"
                       tools:context=".personDetailFragment" />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_source"
+                      android:id="@+id/person_interests"
                       style="@style/TextAppearance.MaterialComponents.Body2"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -56,25 +66,20 @@
                       tools:context=".personDetailFragment" />
 
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_source_link"
-                      style="@style/TextAppearance.MaterialComponents.Body2"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:text="source"
-                      android:autoLink="web"
-                      android:textIsSelectable="true"
-                      tools:context=".personDetailFragment" />
 
 
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:text="Connect"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bt_rounded"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      xmlns:tools="http://schemas.android.com/tools"
-                      android:layout_width="match_parent"
-                      android:layout_height="80dp"
-                      android:text=""
-                      tools:context=".personDetailFragment" />
+
 
         </LinearLayout>
 

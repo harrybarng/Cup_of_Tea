@@ -68,32 +68,36 @@ class UploadActivity : AppCompatActivity() {
         dob.set(Calendar.MILLISECOND, 0)
 
         user["dob"] = Date(dob.timeInMillis)
-        Log.d("tag1", "$user[\"dob\"]")
+//        Log.d("tag1", "$user[\"dob\"]")
 
         // location
+        val lat = settings.getFloat(getString(R.string.key_location_lat), 0F)
+        val lng = settings.getFloat(getString(R.string.key_location_long), 0F)
         user["location"] = hashMapOf(
-                "lat" to settings.getFloat(getString(R.string.key_location_lat), 0F),
-                "lng" to settings.getFloat(getString(R.string.key_location_long), 0F)
+                "lat" to lat,
+                "lng" to lng
             )
 //        Log.d("tag1", user.toString())
-//        goToList()
 
-//        val db = FirebaseFirestore.getInstance()
-//
-//
-//        val userId = "oh, just testing"
-//        db.collection("users").document(userId)
-//            .set(user)
-//            .addOnSuccessListener { documentReference ->
-//                //                Log.d(
-////                    TAG, "A new user added with ID: " + userId
-////                )
-//                Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(this, "Upload Failed", Toast.LENGTH_SHORT).show()
-//            }
+        user["location_provided"] = !(lat == 0F && lng == 0F)
 
+        val db = FirebaseFirestore.getInstance()
+
+
+        val userId = "oh, just testing"
+        db.collection("users").document(userId)
+            .set(user)
+            .addOnSuccessListener { documentReference ->
+                goToList()
+
+                //                Log.d(
+//                    TAG, "A new user added with ID: " + userId
+//                )
+                Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Upload Failed", Toast.LENGTH_SHORT).show()
+            }
 
     }
 
