@@ -35,7 +35,8 @@ class PersonListActivity : AppCompatActivity() {
 
     val TAG = "MainActivity"
     private var mTwoPane: Boolean = false
-    private var DEFAULT_GENDER = "female"
+    private val DEFAULT_GENDER = "female"
+    private val DEFAULT_GENDER_PREF = "male"
     var db = FirebaseFirestore.getInstance()
 
 
@@ -133,8 +134,9 @@ class PersonListActivity : AppCompatActivity() {
     private fun loadData() {
         // read data from firebase
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-        val genderInterested = sharedPref.getString(getString(R.string.key_user_interested_gender), DEFAULT_GENDER)
-        readUserByGender(genderInterested)
+        val genderInterested = sharedPref.getString(getString(R.string.key_user_interested_gender), DEFAULT_GENDER_PREF )
+        val genderSelf = sharedPref.getString(getString(R.string.key_user_gender), DEFAULT_GENDER)
+        readUserByGender(genderSelf, genderInterested)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, newsList: List<User>) {
@@ -234,9 +236,11 @@ class PersonListActivity : AppCompatActivity() {
         return ( (now - dobSecond) / (24 * 60 * 60 * 365) ).toInt()
     }
 
-    fun readUserByGender(gender: String) {
+    fun readUserByGender(genderSelf: String, genderPref: String) {
+        val selfGender =
         db.collection("users")
-            .whereEqualTo("gender", gender)
+            .whereEqualTo("gender", genderSelf)
+            .whereEqualTo("gender_pref", genderPref)
             .get()
             .addOnSuccessListener { documents ->
                 currentUsers.clear()
@@ -250,6 +254,8 @@ class PersonListActivity : AppCompatActivity() {
                         document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
                         document.get("summary").toString(), document.get("interests").toString() ))
                 }
+
+                Log.d("tag1", "$currentUsers")
                 val recyclerView = findViewById<View>(R.id.person_list)!!
                 setupRecyclerView(recyclerView as RecyclerView, currentUsers)
             }
