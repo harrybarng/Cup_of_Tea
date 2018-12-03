@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v7.app.ActionBar
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -71,6 +72,11 @@ class PersonListActivity : AppCompatActivity() {
 
         val toolbar = findViewById<View>(R.id.person_list_toolbar) as Toolbar
         setSupportActionBar(toolbar)
+        val actionbar: ActionBar? = supportActionBar
+        actionbar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+        }
 
 
         if (findViewById<View>(R.id.person_detail_container) != null) {
