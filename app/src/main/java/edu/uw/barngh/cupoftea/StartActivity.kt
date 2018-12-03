@@ -54,29 +54,45 @@ class StartActivity : AppCompatActivity() {
         } else {
             // Permission has already been granted
         }
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
-//                Log.v(TAG, "last Location")
-//                Log.v(TAG, "${location!!.longitude}, ${location!!.latitude}")
-                mCurrentLocation = location
-//                mapFragment.getMapAsync(this)
 
-            }
 
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
-            sharedPref.edit().putFloat(getString(R.string.key_location_long), mCurrentLocation!!.longitude.toFloat()).apply()
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    //                Log.v(TAG, "last Location")
+//                Log.v(TAG, "${location!!.longitude}, ${location!!.latitude}")
+                    mCurrentLocation = location
+                    Log.v(TAG, mCurrentLocation.toString())
+//                mapFragment.getMapAsync(this)
 
-            sharedPref.edit().putFloat(getString(R.string.key_location_lat), mCurrentLocation!!.latitude.toFloat()).apply()
+
+                    val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+                    Log.v(TAG, mCurrentLocation.toString())
+                    sharedPref.edit().putFloat(getString(R.string.key_location_long), mCurrentLocation!!.longitude.toFloat()).apply()
+
+                    sharedPref.edit().putFloat(getString(R.string.key_location_lat), mCurrentLocation!!.latitude.toFloat()).apply()
+
+                    val intent = Intent(this, NameActivity::class.java)
+                    this.startActivity(intent)
+                }
+
+            if(mCurrentLocation == null) {
+                Log.v(TAG, "deny")
+                val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+                Log.v(TAG, mCurrentLocation.toString())
+                sharedPref.edit().putFloat(getString(R.string.key_location_long), 0.toFloat()).apply()
+
+                sharedPref.edit().putFloat(getString(R.string.key_location_lat), 0.toFloat()).apply()
 
                 val intent = Intent(this, NameActivity::class.java)
                 this.startActivity(intent)
+            }
         }
 //            val intent = Intent(this, NameActivity::class.java)
-            val intent = Intent(this, PersonListActivity::class.java)
-            this.startActivity(intent)
+//            val intent = Intent(this, PersonListActivity::class.java)
+//            this.startActivity(intent)
         }
 
 }
