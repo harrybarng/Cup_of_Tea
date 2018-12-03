@@ -10,4 +10,6 @@
     <string name="key_user_interested_gender">GENDERINTERESTED</string>
     <string name="key_interests">INTERESTS</string>
     <string name="key_summary">SUMMARY</string>
+    <string name="key_location_long">LONGITUDE</string>
+    <string name="key_location_lat">LATITUDE</string>
 </resources>
