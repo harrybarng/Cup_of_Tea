@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
@@ -55,23 +56,12 @@ class AgeActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
             if(selected) {
-                var sharedPref = this.getSharedPreferences(
-                    getString(R.string.key_user_birthday),
-                    Context.MODE_PRIVATE
-                )
-                sharedPref.edit().putString(getString(R.string.key_user_birthday), dayofMonth.toString()).commit()
+                val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+                sharedPref.edit().putString(getString(R.string.key_user_birthday), dayofMonth.toString()).apply()
 
-                sharedPref = this.getSharedPreferences(
-                    getString(R.string.key_user_birthmonth),
-                    Context.MODE_PRIVATE
-                )
-                sharedPref.edit().putString(getString(R.string.key_user_birthmonth), month.toString()).commit()
+                sharedPref.edit().putString(getString(R.string.key_user_birthmonth), month.toString()).apply()
 
-                sharedPref = this.getSharedPreferences(
-                    getString(R.string.key_user_birthyear),
-                    Context.MODE_PRIVATE
-                )
-                sharedPref.edit().putString(getString(R.string.key_user_birthyear), year.toString()).commit()
+                sharedPref.edit().putString(getString(R.string.key_user_birthyear), year.toString()).apply()
 
                 val intent = Intent(this, GenderActivity::class.java)
                 this.startActivity(intent)

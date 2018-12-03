@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              style="@style/TextAppearance.MaterialComponents.Headline5"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Choose on Person to View Profile"
+              android:gravity="center"
+              android:textIsSelectable="true"
+              android:textAlignment="center"
+              tools:context=".NewsArticleWelcomeFragment"
+              android:layout_marginBottom="20dp"
+    />
+
+
+
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.*
 
 import com.android.volley.toolbox.NetworkImageView
@@ -17,21 +18,11 @@ import com.android.volley.toolbox.NetworkImageView
  */
 class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollapsibleToolbar  {
 
-    var shareText = ""
 
     override fun setupToolbar() {
         val toolbar = findViewById<View>(R.id.detail_toolbar) as Toolbar
         setSupportActionBar(toolbar)
-        val fab = findViewById<View>(R.id.fab) as FloatingActionButton
-        val fabOnClickListener = View.OnClickListener {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, shareText)
-                type = "text/plain"
-            }
-            startActivity(sendIntent)
-        }
-        fab.setOnClickListener(fabOnClickListener)
+
 
         // Show the Up button in the action bar.
         val actionBar = supportActionBar
@@ -54,30 +45,31 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
         //
 
         if (savedInstanceState == null){
-            val articleItem: PersonListActivity.User = intent.extras!!.getParcelable("article_item")!!
-            this.shareText = articleItem.first_name + articleItem.last_name
-            val detailFragment = PersonDetailFragment.newInstance(articleItem)
+            val personItem: PersonListActivity.User = intent.extras.getParcelable("person_info_item")
+            Log.d("tag1", "in detail activity $personItem")
+            val detailFragment = PersonDetailFragment.newInstance(personItem)
             supportFragmentManager.beginTransaction()
                 .add(R.id.person_detail_container, detailFragment)
                 .commit()
 
             val detailImage = findViewById<NetworkImageView>(R.id.detail_image)
             detailImage.setDefaultImageResId(R.drawable.profile_picture_placeholder)
-            if (articleItem.profile_picture!= null) {
+            if (personItem.profile_picture!= null || personItem.profile_picture != "" ) {
                 detailImage.setImageUrl(
-                    articleItem.profile_picture,
+                    personItem.profile_picture,
                     VolleyService.getInstance(this).imageLoader
                 )
             }
         }
         else {
-            val articleItem: PersonListActivity.User = intent.extras!!.getParcelable("article_item")!!
+            val personItem: PersonListActivity.User = intent.extras.getParcelable("person_info_item")
+            Log.d("tag1", "in detail activity else savedInstanceState is not null $personItem")
             val context = this
             val intent = Intent(context, PersonListActivity::class.java)
 
             val listImage = findViewById<NetworkImageView>(R.id.list_image)
 
-            intent.putExtra("article_item", articleItem)
+            intent.putExtra("person_info_item", personItem)
             startActivity(intent)
         }
     }

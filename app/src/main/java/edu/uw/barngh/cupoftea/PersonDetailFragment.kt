@@ -3,6 +3,7 @@ package edu.uw.barngh.cupoftea
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,7 @@ class PersonDetailFragment : Fragment() {
         }
 
         val rootView = inflater.inflate(R.layout.person_detail, container, false)
-
+        Log.d("tag1", "${(arguments == null)}")
         val user = arguments!!.getParcelable<PersonListActivity.User>(USER_PARCEL_KEY)
 
         (rootView.findViewById<View>(R.id.person_heading) as TextView).text =
@@ -54,12 +55,12 @@ class PersonDetailFragment : Fragment() {
 
     companion object {
 
-        val USER_PARCEL_KEY = "user"
+        val USER_PARCEL_KEY = "person_info_item"
 
-        fun newInstance(news: PersonListActivity.User):  PersonDetailFragment {
+        fun newInstance(person: PersonListActivity.User):  PersonDetailFragment {
 
             val args = Bundle()
-            args.putParcelable(USER_PARCEL_KEY, news)
+            args.putParcelable(USER_PARCEL_KEY, person)
             val fragment = PersonDetailFragment()
             fragment.arguments = args
             return fragment

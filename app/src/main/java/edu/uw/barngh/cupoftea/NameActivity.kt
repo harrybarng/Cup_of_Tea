@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -63,11 +64,8 @@ class NameActivity : AppCompatActivity() {
 
             if(name) {
                 var store = findViewById<EditText>(R.id.user_name).text.toString()
-                val sharedPref = this.getSharedPreferences(
-                    getString(R.string.key_user_name),
-                    Context.MODE_PRIVATE
-                )
-                sharedPref.edit().putString(getString(R.string.key_user_name), store).commit()
+                val settings = PreferenceManager.getDefaultSharedPreferences(this)
+                settings.edit().putString(getString(R.string.key_user_name), store).apply()
                 val intent = Intent(this, ProfilePictureActivity::class.java)
                 this.startActivity(intent)
             }

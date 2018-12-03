@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.Image
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.Button
 import android.widget.ImageButton
 import edu.uw.barngh.cupoftea.R
@@ -54,11 +55,8 @@ class GenderInterestActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
             if(finalChoice != ""){
-                val sharedPref = this.getSharedPreferences(
-                    getString(R.string.key_user_interested_gender),
-                    Context.MODE_PRIVATE
-                )
-                sharedPref.edit().putString(getString(R.string.key_user_interested_gender), finalChoice).commit()
+                val settings = PreferenceManager.getDefaultSharedPreferences(this)
+                settings.edit().putString(getString(R.string.key_user_interested_gender), finalChoice).apply()
                 val intent = Intent(this, InterestAcitivity::class.java)
                 this.startActivity(intent)
             }

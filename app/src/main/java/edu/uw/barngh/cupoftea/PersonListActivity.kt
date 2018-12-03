@@ -1,6 +1,5 @@
 package edu.uw.barngh.cupoftea
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
@@ -8,19 +7,17 @@ import android.preference.PreferenceManager
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.NetworkImageView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.parcel.Parcelize
+import news.uwgin.uw.edu.news.PersonWelcomeFragment
+import java.util.Date
 
 /**
  * An activity representing a list of Pings. This activity
@@ -35,15 +32,9 @@ class PersonListActivity : AppCompatActivity() {
 
     val TAG = "MainActivity"
     private var mTwoPane: Boolean = false
-    private var searchKey = ""
     private var DEFAULT_GENDER = "female"
     var db = FirebaseFirestore.getInstance()
 
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("searchKey", searchKey)
-        super.onSaveInstanceState(outState)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -87,16 +78,17 @@ class PersonListActivity : AppCompatActivity() {
 
             if (savedInstanceState != null ) {
                 setFAB("refresh")
-                val fragment = PersonDetailFragment()
+                val fragment = PersonWelcomeFragment()
                 this.supportFragmentManager.beginTransaction()
                     .replace(R.id.person_detail_container, fragment)
 //                    .addToBackStack("root")
                     .commit()
             } else {
                 val arguments = Bundle()
-                val item: User = intent.extras.getParcelable("article_item")
-                setFAB("share", "${item.first_name} ${item.last_name}")
-                arguments.putParcelable("article_item", item)
+                val item: User = intent.extras!!.getParcelable("person_info_item")!!
+//                Log.d("tag1", "$item")
+                setFAB("refresh")
+                arguments.putParcelable("person_info_item", item)
                 val fragment = PersonDetailFragment()
                 fragment.arguments = arguments
                 this.supportFragmentManager.beginTransaction()
@@ -104,22 +96,11 @@ class PersonListActivity : AppCompatActivity() {
                     .addToBackStack(null)
                     .commit()
             }
-        } else {
 
-            if (savedInstanceState != null ) {
-
-            } else {
-                setFAB("refresh")
-            }
         }
 
-        if (savedInstanceState != null){
-            val searchKey = savedInstanceState.getString("searchKey")
-            loadData(searchKey)
+        loadData()
 
-        } else {
-            loadData()
-        }
     }
 
     private fun setFAB(fab_type: String, shareText: String = "") {
@@ -139,11 +120,6 @@ class PersonListActivity : AppCompatActivity() {
         }
 
         when (fab_type) {
-            "share" -> {
-                fab.show()
-                fab.setOnClickListener(fabShareListener)
-//                fab.setImageResource(R.drawable.sh)
-            }
             "refresh" -> {
                 fab.show()
                 fab.setOnClickListener(fabRefreshListener)
@@ -152,13 +128,10 @@ class PersonListActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadData(searchKey: String = "") {
+    private fun loadData() {
         // read data from firebase
-        val sharedPref = this.getSharedPreferences(
-            getString(R.string.key_user_interested_gender),
-            Context.MODE_PRIVATE
-        )
-        var genderInterested = sharedPref.getString(getString(R.string.key_user_interested_gender), DEFAULT_GENDER)
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val genderInterested = sharedPref.getString(getString(R.string.key_user_interested_gender), DEFAULT_GENDER)
         readUserByGender(genderInterested)
     }
 
@@ -175,8 +148,8 @@ class PersonListActivity : AppCompatActivity() {
             val item = view.tag as User
             if (mTwoPane) {
                 val arguments = Bundle()
-                setFAB("share", "${item.first_name} ${item.last_name}")
-                arguments.putParcelable("article_item", item)
+                setFAB("refresh")
+                arguments.putParcelable("person_info_item", item)
                 val fragment = PersonDetailFragment()
                 fragment.arguments = arguments
                 mParentActivity.supportFragmentManager.beginTransaction()
@@ -186,7 +159,7 @@ class PersonListActivity : AppCompatActivity() {
             } else {
                 val context = view.context
                 val intent = Intent(context, PersonDetailActivity::class.java)
-                intent.putExtra("article_item", item)
+                intent.putExtra("person_info_item", item)
 //                context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this@PersonListActivity).toBundle())
 //                val detailImage = findViewById<NetworkImageView>(R.id.detail_image)
                 val listImage = findViewById<NetworkImageView>(R.id.list_image)
@@ -233,7 +206,7 @@ class PersonListActivity : AppCompatActivity() {
     data class User(
         val first_name:String,
         val last_name:String,
-        val age: Long,
+        val age: Int,
         val gender:String,
         val gender_pref:String,
         val location: MutableMap<String, Double> = mutableMapOf(),
@@ -244,6 +217,12 @@ class PersonListActivity : AppCompatActivity() {
 
     var currentUsers = mutableListOf<User>()
 
+    fun getAge(dob: Date): Int {
+        val now = Date().time / 1000
+        val dobSecond = dob.time / 1000
+        return ( (now - dobSecond) / (24 * 60 * 60 * 365) ).toInt()
+    }
+
     fun readUserByGender(gender: String) {
         db.collection("users")
             .whereEqualTo("gender", gender)
@@ -251,9 +230,12 @@ class PersonListActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 currentUsers.clear()
                 for (document in documents) {
-                    Log.d(TAG, document.id + " => " + document.data)
+//                    Log.d(TAG, document.id + " => " + document.data)
+                    val age = getAge(document.get("dob") as Date)
+
+
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
-                        document.get("age") as Long, document.get("gender").toString(), document.get("gender_pref").toString(),
+                        age, document.get("gender").toString(), document.get("gender_pref").toString(),
                         document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
                         document.get("summary").toString()))
                 }
@@ -271,9 +253,11 @@ class PersonListActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val document = task.result
                 if (document!!.exists()) {
-                    Log.d(TAG, "User data: " + document.data!!)
+
+                    val age = getAge(document.get("dob") as Date)
+
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
-                        document.get("age") as Long, document.get("gender").toString(), document.get("gender_pref").toString(),
+                        age, document.get("gender").toString(), document.get("gender_pref").toString(),
                         document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
                         document.get("summary").toString()))
 

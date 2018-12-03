@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.Image
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.BoringLayout
 import android.widget.*
 import edu.uw.barngh.cupoftea.R
@@ -82,11 +83,8 @@ class InterestAcitivity : AppCompatActivity() {
                     }
 
                 }
-                val sharedPref = this.getSharedPreferences(
-                    getString(R.string.key_interests),
-                    Context.MODE_PRIVATE
-                )
-                sharedPref.edit().putString(getString(R.string.key_interests), interestString).commit()
+                val settings = PreferenceManager.getDefaultSharedPreferences(this)
+                settings.edit().putString(getString(R.string.key_interests), interestString).apply()
                 Toast.makeText(this, interestString, Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, SummaryActivity::class.java)
                 this.startActivity(intent)
