@@ -1,6 +1,7 @@
 package edu.uw.barngh.cupoftea
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.os.Parcelable
 import android.preference.PreferenceManager
@@ -12,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import com.android.volley.toolbox.NetworkImageView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -70,14 +72,17 @@ class PersonListActivity : AppCompatActivity() {
         val toolbar = findViewById<View>(R.id.person_list_toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
+
         if (findViewById<View>(R.id.person_detail_container) != null) {
             this.mTwoPane = true
         }
 
+        setFAB("refresh")
+
         if (this.mTwoPane) {
 
             if (savedInstanceState != null ) {
-                setFAB("refresh")
+
                 val fragment = PersonWelcomeFragment()
                 this.supportFragmentManager.beginTransaction()
                     .replace(R.id.person_detail_container, fragment)
@@ -87,7 +92,6 @@ class PersonListActivity : AppCompatActivity() {
                 val arguments = Bundle()
                 val item: User = intent.extras!!.getParcelable("person_info_item")!!
 //                Log.d("tag1", "$item")
-                setFAB("refresh")
                 arguments.putParcelable("person_info_item", item)
                 val fragment = PersonDetailFragment()
                 fragment.arguments = arguments
@@ -103,17 +107,9 @@ class PersonListActivity : AppCompatActivity() {
 
     }
 
-    private fun setFAB(fab_type: String, shareText: String = "") {
+    private fun setFAB(fab_type: String) {
         val fab = findViewById<View>(R.id.fab) as FloatingActionButton
 
-        val fabShareListener = View.OnClickListener {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, shareText)
-                type = "text/plain"
-            }
-            startActivity(sendIntent)
-        }
 
         val fabRefreshListener = View.OnClickListener {
             loadData()
@@ -188,6 +184,10 @@ class PersonListActivity : AppCompatActivity() {
             if (mValues[position].profile_picture != null) {
                 holder.mImageView.setImageUrl(mValues[position].profile_picture, VolleyService.getInstance(mParentActivity).imageLoader)
             }
+            holder.mAgeView.text = mValues[position].age.toString()
+            if (mValues[position].gender == "female") {
+                holder.mGenderImage.setImageDrawable(getDrawable(R.drawable.femenine))
+            }
         }
 
         override fun getItemCount(): Int {
@@ -195,9 +195,12 @@ class PersonListActivity : AppCompatActivity() {
         }
 
         internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val mIdView: TextView = view.findViewById<View>(R.id.list_heading) as TextView
+            val mIdView: TextView = view.findViewById<View>(R.id.list_name) as TextView
             //            val mContentView: TextView = view.findViewById<View>(R.id.content) as TextView
             val mImageView: NetworkImageView = view.findViewById(R.id.list_image)
+            val mAgeView: TextView = view.findViewById<View>(R.id.list_age) as TextView
+            val mGenderImage: ImageView = view.findViewById(R.id.list_gender_img)
+
 
         }
     }

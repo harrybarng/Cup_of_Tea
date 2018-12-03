@@ -21,31 +21,43 @@
         >
 
 
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                          xmlns:tools="http://schemas.android.com/tools"
+                          android:id="@+id/detail_name"
+                          style="@style/TextAppearance.MaterialComponents.Headline5"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Name"
+                          android:textIsSelectable="true"
+                          android:fillViewport="true"
+                          tools:context=".personDetailFragment"
+                />
+                <ImageView
+                        android:id="@+id/detail_gender_img"
+                        android:layout_width="21dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/masculine"
+                />
+            </LinearLayout>
+
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_name"
-                      style="@style/TextAppearance.MaterialComponents.Headline5"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:text="Name"
-                      android:textIsSelectable="true"
-                      android:fillViewport="true"
-                      tools:context=".personDetailFragment"
-            />
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_summary"
+                      android:id="@+id/detail_summary"
                       style="@style/TextAppearance.MaterialComponents.Body2"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="source"
+                      android:text="summary"
                       android:textIsSelectable="true"
                       tools:context=".personDetailFragment" />
 
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_age"
+                      android:id="@+id/detail_age"
                       style="@style/TextAppearance.MaterialComponents.Body1"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -57,7 +69,7 @@
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:tools="http://schemas.android.com/tools"
-                      android:id="@+id/person_interests"
+                      android:id="@+id/detail_interests"
                       style="@style/TextAppearance.MaterialComponents.Body2"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -69,6 +81,8 @@
 
 
                 <Button
+                        android:layout_margin="20dp"
+                        android:id="@+id/detail_connect"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"

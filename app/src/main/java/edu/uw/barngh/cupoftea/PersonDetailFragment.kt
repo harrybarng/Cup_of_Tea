@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_person_detail.*
 import kotlinx.android.synthetic.main.person_detail.view.*
@@ -36,17 +37,21 @@ class PersonDetailFragment : Fragment() {
         Log.d("tag1", "${(arguments == null)}")
         val user = arguments!!.getParcelable<PersonListActivity.User>(USER_PARCEL_KEY)
 
-        (rootView.findViewById<View>(R.id.person_name) as TextView).text =
-                if (user.first_name == "null") "first_name" else user.first_name
+        (rootView.findViewById<View>(R.id.detail_name) as TextView).text =
+                if (user.first_name == "null") "first_name" else "${user.first_name} ${user.last_name}"
 
-        (rootView.findViewById<View>(R.id.person_age) as TextView).text =
-                if (user.age == null) "age" else "Age: ${user.age}"
+        (rootView.findViewById<View>(R.id.detail_age) as TextView).text =
+                if (user.age == null) "" else "Age: ${user.age}"
 
-        (rootView.findViewById<View>(R.id.person_interests) as TextView).text =
-                if (user.gender == "null") "" else "Interests: ${user.interests}"
+        (rootView.findViewById<View>(R.id.detail_interests) as TextView).text =
+                if (user.interests == "null") "" else "Interests: ${user.interests}"
 
-        val summary = (rootView.findViewById<View>(R.id.person_summary) as TextView)
+        val summary = (rootView.findViewById<View>(R.id.detail_summary) as TextView)
         summary.text = if (user.summary == "null") "" else user.summary
+
+        if (user.gender == "female") {
+            (rootView.findViewById<View>(R.id.detail_gender_img) as ImageView).setImageResource(R.drawable.femenine)
+        }
 
         setUpToolBar?.setupToolbar()
 
