@@ -57,11 +57,11 @@ class AgeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
             if(selected) {
                 val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-                sharedPref.edit().putString(getString(R.string.key_user_birthday), dayofMonth.toString()).apply()
+                sharedPref.edit().putInt(getString(R.string.key_user_birthday), dayofMonth).apply()
 
-                sharedPref.edit().putString(getString(R.string.key_user_birthmonth), month.toString()).apply()
+                sharedPref.edit().putInt(getString(R.string.key_user_birthmonth), month).apply()
 
-                sharedPref.edit().putString(getString(R.string.key_user_birthyear), year.toString()).apply()
+                sharedPref.edit().putInt(getString(R.string.key_user_birthyear), year).apply()
 
                 val intent = Intent(this, GenderActivity::class.java)
                 this.startActivity(intent)

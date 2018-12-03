@@ -8,6 +8,10 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
+import kotlin.collections.HashMap
 
 class UploadActivity : AppCompatActivity() {
 
@@ -45,16 +49,37 @@ class UploadActivity : AppCompatActivity() {
         user["first_name"] = settings.getString(getString(R.string.key_user_name), "") as String
         user["last_name"] = ""
         user["profile_picture"] = settings.getString(getString(R.string.key_profile_picture), "") as String
-        // dob
         user["gender"] = settings.getString(getString(R.string.key_user_gender), "") as String
         user["gender_pref"] = settings.getString(getString(R.string.key_user_interested_gender), "") as String
         user["interests"] = settings.getString(getString(R.string.key_interests), "") as String
         user["summary"] = settings.getString(getString(R.string.key_summary), "") as String
-        Log.d("tag1", user.toString())
-        goToList()
+        // dob
+        val dobYear = settings.getInt(getString(R.string.key_user_birthyear), 1990)
+        val dobMonth = settings.getInt(getString(R.string.key_user_birthmonth), 1)
+        val dobDay = settings.getInt(getString(R.string.key_user_birthday), 1)
+
+        val dob = Calendar.getInstance()
+        dob.set(Calendar.YEAR, dobYear)
+        dob.set(Calendar.MONTH, dobMonth)
+        dob.set(Calendar.DAY_OF_MONTH, dobDay)
+        dob.set(Calendar.HOUR_OF_DAY, 0)
+        dob.set(Calendar.MINUTE, 0)
+        dob.set(Calendar.SECOND, 0)
+        dob.set(Calendar.MILLISECOND, 0)
+
+        user["dob"] = Date(dob.timeInMillis)
+        Log.d("tag1", "$user[\"dob\"]")
+
+        // location
+        user["location"] = hashMapOf(
+                "lat" to settings.getFloat(getString(R.string.key_location_lat), 0F),
+                "lng" to settings.getFloat(getString(R.string.key_location_long), 0F)
+            )
+//        Log.d("tag1", user.toString())
+//        goToList()
+
 //        val db = FirebaseFirestore.getInstance()
 //
-////        val userId = user["userId"] as String
 //
 //        val userId = "oh, just testing"
 //        db.collection("users").document(userId)
@@ -68,6 +93,7 @@ class UploadActivity : AppCompatActivity() {
 //            .addOnFailureListener {
 //                Toast.makeText(this, "Upload Failed", Toast.LENGTH_SHORT).show()
 //            }
+
 
     }
 

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -64,17 +65,11 @@ class StartActivity : AppCompatActivity() {
 
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            var sharedPref = this.getSharedPreferences(
-                getString(R.string.key_location_long),
-                Context.MODE_PRIVATE
-            )
-            sharedPref.edit().putString(getString(R.string.key_location_long), mCurrentLocation!!.longitude.toString()).commit()
+            val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
-            sharedPref = this.getSharedPreferences(
-                getString(R.string.key_location_lat),
-                Context.MODE_PRIVATE
-            )
-            sharedPref.edit().putString(getString(R.string.key_location_lat), mCurrentLocation!!.latitude.toString()).commit()
+            sharedPref.edit().putFloat(getString(R.string.key_location_long), mCurrentLocation!!.longitude.toFloat()).apply()
+
+            sharedPref.edit().putFloat(getString(R.string.key_location_lat), mCurrentLocation!!.latitude.toFloat()).apply()
 
                 val intent = Intent(this, NameActivity::class.java)
                 this.startActivity(intent)
