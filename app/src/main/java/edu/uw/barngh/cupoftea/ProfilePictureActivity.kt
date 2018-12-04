@@ -124,7 +124,7 @@ class ProfilePictureActivity : AppCompatActivity() {
                             val downloadUri = task.result
                             val settings = PreferenceManager.getDefaultSharedPreferences(this)
                             val editor = settings.edit()
-                            editor.putString(R.string.key_profile_picture.toString(), downloadUri.toString())
+                            editor.putString(getString(R.string.key_profile_picture), downloadUri.toString())
                             editor.apply()
 
 
