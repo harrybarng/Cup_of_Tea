@@ -66,7 +66,7 @@ class NameActivity : AppCompatActivity() {
                 var store = findViewById<EditText>(R.id.user_name).text.toString()
                 val settings = PreferenceManager.getDefaultSharedPreferences(this)
                 settings.edit().putString(getString(R.string.key_user_name), store).apply()
-                val intent = Intent(this, ProfilePictureActivity::class.java)
+                val intent = Intent(this, MessagePreferenceActivity::class.java)
                 this.startActivity(intent)
             }
         }

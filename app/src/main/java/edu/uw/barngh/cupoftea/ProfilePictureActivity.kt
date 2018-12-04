@@ -94,8 +94,8 @@ class ProfilePictureActivity : AppCompatActivity() {
 
                 // Create a storage reference from our app
                 val storageRef = storage.reference
-
-                val filename = "2062134059"
+                val settings = PreferenceManager.getDefaultSharedPreferences(this)
+                val filename = settings.getString(getString(R.string.contact_value), "2062222222")
                 val ref = storageRef.child("profile_pics/$filename.jpg")
 
 
@@ -122,7 +122,7 @@ class ProfilePictureActivity : AppCompatActivity() {
                 }).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val downloadUri = task.result
-                            val settings = PreferenceManager.getDefaultSharedPreferences(this)
+
                             val editor = settings.edit()
                             editor.putString(getString(R.string.key_profile_picture), downloadUri.toString())
                             editor.apply()

@@ -23,6 +23,7 @@ import android.widget.TextView
 import com.android.volley.toolbox.NetworkImageView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.synthetic.main.person_detail.*
 import news.uwgin.uw.edu.news.PersonWelcomeFragment
 import java.util.Date
 
@@ -272,7 +273,9 @@ class PersonListActivity : AppCompatActivity() {
         val profile_picture: String,
         val summary: String,
         val interests: String,
-        var distance: Int
+        var distance: Int,
+        val contact_type: String,
+        val contact_value: String
 
         ) : Parcelable
 
@@ -300,10 +303,22 @@ class PersonListActivity : AppCompatActivity() {
                         continue;
                     }
 
-                    currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
-                        age, document.get("gender").toString(), document.get("gender_pref").toString(),
-                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
-                        document.get("summary").toString(), document.get("interests").toString(), DEFAULT_DISTANCE ))
+                    currentUsers.add(
+                        User(
+                            document.get("first_name").toString(),
+                            document.get("last_name").toString(),
+                            age,
+                            document.get("gender").toString(),
+                            document.get("gender_pref").toString(),
+                            document.get("location") as MutableMap<String, Double>,
+                            document.get("profile_picture").toString(),
+                            document.get("summary").toString(),
+                            document.get("interests").toString(),
+                            DEFAULT_DISTANCE,
+                            document.get("contact_type").toString(),
+                            document.get("userId").toString()
+                            )
+                        )
                 }
 
                 Log.d("tag1", "$currentUsers")

@@ -83,7 +83,7 @@ class UploadActivity : AppCompatActivity() {
 
 //        user["location_provided"] = !(lat == 0F && lng == 0F)
         val userId = settings.getString(getString(R.string.contact_value), "2062224312") as String
-        user["user_Id"] = userId
+        user["userId"] = userId
 
         val db = FirebaseFirestore.getInstance()
 

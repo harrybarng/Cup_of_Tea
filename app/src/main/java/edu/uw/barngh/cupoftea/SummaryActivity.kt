@@ -77,7 +77,7 @@ class SummaryActivity : AppCompatActivity() {
             if(next) {
                 val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
                 sharedPref.edit().putString(getString(R.string.key_summary), findViewById<EditText>(R.id.summary).text.toString()).apply()
-                val intent = Intent(this, MessagePreferenceActivity::class.java)
+                val intent = Intent(this, UploadActivity::class.java)
                 this.startActivity(intent)
             }
         }

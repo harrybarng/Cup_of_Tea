@@ -7,10 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_person_detail.*
 import kotlinx.android.synthetic.main.person_detail.view.*
+import android.content.Intent
+import android.net.Uri
+
 
 /**
  * A fragment representing a single Person detail screen.
@@ -54,6 +58,25 @@ class PersonDetailFragment : Fragment() {
 
         if (user.gender == "female") {
             (rootView.findViewById<View>(R.id.detail_gender_img) as ImageView).setImageResource(R.drawable.femenine)
+        }
+
+        rootView.findViewById<Button>(R.id.detail_connect).setOnClickListener {
+            Log.d("tag1", "clicked")
+            if (user.contact_type == "PHONE") {
+                val sendIntent = Intent(Intent.ACTION_VIEW)
+                sendIntent.data = Uri.parse("sms:")
+                sendIntent.putExtra("address", user.contact_value)
+                sendIntent.putExtra("sms_body", "Hello, I'm ${user.first_name}, wanna a cup of coffee?")
+                startActivity(sendIntent)
+            } else {
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.data = Uri.parse("mailto:")
+                emailIntent.type = "text/plain"
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, user.contact_value)
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Connect from cup of tea")
+                emailIntent.putExtra(Intent.EXTRA_TEXT   , "Hello, I'm ${user.first_name}, wanna a cup of coffee?")
+                startActivity(emailIntent)
+            }
         }
 
         setUpToolBar?.setupToolbar()

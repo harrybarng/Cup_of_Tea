@@ -50,7 +50,7 @@ class MessagePreferenceActivity : AppCompatActivity() {
                 Log.v("contact preference",findViewById<EditText>(R.id.text_number).text.toString() )
             }
 
-            val intent = Intent(this, UploadActivity::class.java)
+            val intent = Intent(this, ProfilePictureActivity::class.java)
             this.startActivity(intent)
 
         }
