@@ -286,8 +286,8 @@ class PersonListActivity : AppCompatActivity() {
     fun readUserByGender(genderSelf: String, genderPref: String) {
         val selfGender =
         db.collection("users")
-            .whereEqualTo("gender", genderSelf)
-            .whereEqualTo("gender_pref", genderPref)
+            .whereEqualTo("gender", genderPref)
+            .whereEqualTo("gender_pref", genderSelf)
             .get()
             .addOnSuccessListener { documents ->
                 currentUsers.clear()
