@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import com.google.android.gms.location.*
 
 class StartActivity : AppCompatActivity() {
@@ -38,8 +39,6 @@ class StartActivity : AppCompatActivity() {
 
 
                 findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-
-                    startLocationRequest()
                     if(mCurrentLocation != null) {
                         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
                         Log.v(TAG, "clicked update location")
@@ -68,6 +67,7 @@ class StartActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
         startLocationRequest()
     }
 
@@ -82,9 +82,9 @@ class StartActivity : AppCompatActivity() {
     fun startLocationRequest() {
         Log.v(TAG, "get location")
         var permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
 
+            Toast.makeText(this, "updating your location", Toast.LENGTH_LONG).show()
             val locationRequest = LocationRequest().apply {
                 this.interval = 1
                 this.fastestInterval = 1
