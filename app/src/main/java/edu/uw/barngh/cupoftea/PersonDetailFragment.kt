@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_person_detail.*
 import kotlinx.android.synthetic.main.person_detail.view.*
 import android.content.Intent
 import android.net.Uri
+import android.preference.PreferenceManager
 
 
 /**
@@ -60,13 +61,24 @@ class PersonDetailFragment : Fragment() {
             (rootView.findViewById<View>(R.id.detail_gender_img) as ImageView).setImageResource(R.drawable.femenine)
         }
 
-        rootView.findViewById<Button>(R.id.detail_connect).setOnClickListener {
+        val connectButton= rootView.findViewById<Button>(R.id.detail_connect)
+        if (user.contact_type == "PHONE") {
+            connectButton.text = "Connect via SMS"
+
+        } else {
+            connectButton.text = "Connect via Email"
+        }
+
+        connectButton.setOnClickListener {
+            val settings = PreferenceManager.getDefaultSharedPreferences(activity)
+            val myName = settings.getString(getString(R.string.key_user_name), "cup of tea user")
+            val connectButton = rootView.findViewById<Button>(R.id.detail_connect)
             Log.d("tag1", "clicked")
             if (user.contact_type == "PHONE") {
                 val sendIntent = Intent(Intent.ACTION_VIEW)
                 sendIntent.data = Uri.parse("sms:")
                 sendIntent.putExtra("address", user.contact_value)
-                sendIntent.putExtra("sms_body", "Hello, I'm ${user.first_name}, wanna a cup of coffee?")
+                sendIntent.putExtra("sms_body", "Hello, I'm $myName, wanna a cup of coffee?")
                 startActivity(sendIntent)
             } else {
                 val emailIntent = Intent(Intent.ACTION_SEND)
@@ -74,7 +86,7 @@ class PersonDetailFragment : Fragment() {
                 emailIntent.type = "text/plain"
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, user.contact_value)
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Connect from cup of tea")
-                emailIntent.putExtra(Intent.EXTRA_TEXT   , "Hello, I'm ${user.first_name}, wanna a cup of coffee?")
+                emailIntent.putExtra(Intent.EXTRA_TEXT   , "Hello, I'm $myName, wanna a cup of coffee?")
                 startActivity(emailIntent)
             }
         }
