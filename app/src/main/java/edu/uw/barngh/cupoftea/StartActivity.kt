@@ -37,7 +37,7 @@ class StartActivity : AppCompatActivity() {
 //            val intent = Intent(this, PersonListActivity::class.java)
 //            this.startActivity(intent)
 
-
+                startLocationRequest()
                 findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
                     if(mCurrentLocation != null) {
                         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
