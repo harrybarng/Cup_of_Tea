@@ -44,8 +44,8 @@ class PersonListActivity : AppCompatActivity() {
     private val DEFAULT_LONGITUDE = -122.307958f
     private val DEFAULT_LATITUDE = 47.653785f
     private val METERS_TO_MILES_CONVERT_RATE = 1609.34
+    private val DEFAULT_DISTANCE = 0
     var db = FirebaseFirestore.getInstance()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -101,7 +101,7 @@ class PersonListActivity : AppCompatActivity() {
             true
         }
 
-
+        
         if (findViewById<View>(R.id.person_detail_container) != null) {
             this.mTwoPane = true
         }
@@ -229,6 +229,7 @@ class PersonListActivity : AppCompatActivity() {
                 holder.mGenderImage.setImageDrawable(getDrawable(R.drawable.femenine))
             }
             var distance = getDistance(mValues[position])
+            mValues[position].distance = distance
             holder.mLocation.text = distance.toString() + "mil away"
         }
 
@@ -246,7 +247,7 @@ class PersonListActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDistance(user : User) : Int {
+    fun getDistance(user : User) : Int {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val loc1 = Location("")
         loc1.setLatitude(sharedPref.getFloat(getString(R.string.key_location_lat), DEFAULT_LATITUDE).toDouble())
@@ -269,8 +270,8 @@ class PersonListActivity : AppCompatActivity() {
         val location: MutableMap<String, Double> = mutableMapOf(),
         val profile_picture: String,
         val summary: String,
-        val interests: String
-
+        val interests: String,
+        var distance: Int
 
         ) : Parcelable
 
@@ -298,7 +299,7 @@ class PersonListActivity : AppCompatActivity() {
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
                         age, document.get("gender").toString(), document.get("gender_pref").toString(),
                         document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
-                        document.get("summary").toString(), document.get("interests").toString() ))
+                        document.get("summary").toString(), document.get("interests").toString(), DEFAULT_DISTANCE ))
                 }
 
                 Log.d("tag1", "$currentUsers")
@@ -322,7 +323,7 @@ class PersonListActivity : AppCompatActivity() {
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
                         age, document.get("gender").toString(), document.get("gender_pref").toString(),
                         document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
-                        document.get("summary").toString(), document.get("interests").toString()))
+                        document.get("summary").toString(), document.get("interests").toString(), DEFAULT_DISTANCE))
 
                 } else {
                     Log.d(TAG, "No such user")
