@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="true"
@@ -51,6 +51,8 @@
         <activity android:name=".SummaryActivity">
         </activity>
         <activity android:name=".UploadActivity">
+        </activity>
+        <activity android:name=".PhoneNumberActivity">
         </activity>
     </application>
 

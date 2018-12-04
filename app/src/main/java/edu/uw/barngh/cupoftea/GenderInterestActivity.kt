@@ -14,7 +14,7 @@ class GenderInterestActivity : AppCompatActivity() {
 
     var maleSelect = false
     var femaleSelect = false
-    var finalChoice = ""
+    var finalChoice = "other"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,7 @@ class GenderInterestActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.male_button).setOnClickListener{
                 v ->
             buttonPressed()
+            findViewById<Button>(R.id.bt_get_started).text = "Next"
             if(femaleSelect){
                 femaleSelect = false
                 findViewById<ImageButton>(R.id.female_button).setImageResource(R.drawable.bt_female)
@@ -36,12 +37,18 @@ class GenderInterestActivity : AppCompatActivity() {
                 maleSelect = true
                 finalChoice = "male"
                 findViewById<ImageButton>(R.id.male_button).setImageResource(R.drawable.bt_male_selected)
+            }else{
+                maleSelect = false
+                finalChoice = "other"
+                findViewById<ImageButton>(R.id.male_button).setImageResource(R.drawable.bt_male)
+                findViewById<Button>(R.id.bt_get_started).text = "Skip"
             }
 
         }
 
         findViewById<ImageButton>(R.id.female_button).setOnClickListener{ v ->
             buttonPressed()
+            findViewById<Button>(R.id.bt_get_started).text = "Next"
             if(maleSelect){
                 maleSelect = false
                 findViewById<ImageButton>(R.id.male_button).setImageResource(R.drawable.bt_male)
@@ -50,16 +57,20 @@ class GenderInterestActivity : AppCompatActivity() {
                 femaleSelect = true
                 finalChoice = "female"
                 findViewById<ImageButton>(R.id.female_button).setImageResource(R.drawable.bt_female_selected)
+            }else{
+                femaleSelect = false
+                finalChoice = "other"
+                findViewById<ImageButton>(R.id.female_button).setImageResource(R.drawable.bt_female)
+                findViewById<Button>(R.id.bt_get_started).text = "Skip"
             }
         }
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            if(finalChoice != ""){
                 val settings = PreferenceManager.getDefaultSharedPreferences(this)
                 settings.edit().putString(getString(R.string.key_user_interested_gender), finalChoice).apply()
                 val intent = Intent(this, InterestAcitivity::class.java)
                 this.startActivity(intent)
-            }
+
         }
     }
 }
