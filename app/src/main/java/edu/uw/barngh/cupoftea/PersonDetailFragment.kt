@@ -46,6 +46,9 @@ class PersonDetailFragment : Fragment() {
         (rootView.findViewById<View>(R.id.detail_interests) as TextView).text =
                 if (user.interests == "null") "" else "Interests: ${user.interests}"
 
+        val distance = (rootView.findViewById<View>(R.id.detail_distance) as TextView)
+        distance.text = if (user.location.size == 0) "" else "${user.distance} miles away"
+
         val summary = (rootView.findViewById<View>(R.id.detail_summary) as TextView)
         summary.text = if (user.summary == "null") "" else user.summary
 

@@ -67,18 +67,36 @@
                       android:textIsSelectable="true"
                       tools:context=".personDetailFragment" />
 
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <ImageView
+                        android:id="@+id/detail_loc_img"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@android:drawable/ic_menu_directions"
+                         />
+                <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                          xmlns:tools="http://schemas.android.com/tools"
+                          android:id="@+id/detail_distance"
+                          style="@style/TextAppearance.MaterialComponents.Body1"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginBottom="20dp"
+                          android:text="Distance"
+                          android:textIsSelectable="true"
+                          tools:context=".personDetailFragment" />
+            </LinearLayout>
+
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       xmlns:tools="http://schemas.android.com/tools"
                       android:id="@+id/detail_interests"
                       style="@style/TextAppearance.MaterialComponents.Body2"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="source"
+                      android:text="interests"
                       android:textIsSelectable="true"
                       tools:context=".personDetailFragment" />
-
-
-
 
                 <Button
                         android:layout_margin="20dp"
