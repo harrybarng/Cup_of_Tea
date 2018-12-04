@@ -29,46 +29,58 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        Log.d("tag1", sharedPref.getBoolean(getString(R.string.key_setup_done), true).toString())
 
 //            val intent = Intent(this, NameActivity::class.java)
 //            val intent = Intent(this, PersonListActivity::class.java)
 //            this.startActivity(intent)
-
-                startLocationRequest()
-                findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-                    if(mCurrentLocation != null) {
-                        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-                        Log.v(TAG, "clicked update location")
-                        Log.v(TAG, mCurrentLocation!!.longitude.toString() + mCurrentLocation!!.latitude.toString())
-                        Log.v(TAG, mCurrentLocation.toString())
-                        sharedPref.edit()
-                            .putFloat(getString(R.string.key_location_long), mCurrentLocation!!.longitude.toFloat())
-                            .apply()
-                        sharedPref.edit()
-                            .putFloat(getString(R.string.key_location_lat), mCurrentLocation!!.latitude.toFloat())
-                            .apply()
-                        val intent = Intent(this, NameActivity::class.java)
-                        this.startActivity(intent)
-                    } else {
-                        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-                        Log.v(TAG, mCurrentLocation.toString())
-                        sharedPref.edit().putFloat(getString(R.string.key_location_long), 0.toFloat()).apply()
-
-                        sharedPref.edit().putFloat(getString(R.string.key_location_lat), 0.toFloat()).apply()
-
-                        val intent = Intent(this, NameActivity::class.java)
-                        this.startActivity(intent)
-                    }
+        if (!sharedPref.getBoolean(getString(R.string.key_setup_done), false)) {
+            Log.d("tag1", sharedPref.getBoolean(getString(R.string.key_setup_done), true).toString())
+            startLocationRequest()
         }
+            findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
+                if (sharedPref.getBoolean(getString(R.string.key_setup_done), false)) {
+                    val intent = Intent(this, PersonListActivity::class.java)
+                    this.startActivity(intent)
+                } else if (mCurrentLocation != null) {
+                    Log.v(TAG, "clicked update location")
+                    Log.v(TAG, mCurrentLocation!!.longitude.toString() + mCurrentLocation!!.latitude.toString())
+                    Log.v(TAG, mCurrentLocation.toString())
+                    sharedPref.edit()
+                        .putFloat(getString(R.string.key_location_long), mCurrentLocation!!.longitude.toFloat())
+                        .apply()
+                    sharedPref.edit()
+                        .putFloat(getString(R.string.key_location_lat), mCurrentLocation!!.latitude.toFloat())
+                        .apply()
+                    sharedPref.edit().putBoolean(getString(R.string.key_location_obtained), true).apply()
+                    val intent = Intent(this, NameActivity::class.java)
+                    this.startActivity(intent)
+
+                } else {
+                    Log.v(TAG, mCurrentLocation.toString())
+                    sharedPref.edit().putFloat(getString(R.string.key_location_long), 0.toFloat()).apply()
+                    sharedPref.edit().putFloat(getString(R.string.key_location_lat), 0.toFloat()).apply()
+                    sharedPref.edit().putBoolean(getString(R.string.key_location_obtained), false).apply()
+                    val intent = Intent(this, NameActivity::class.java)
+                    this.startActivity(intent)
+
+                }
+
+
         }
+
+
+
+    }
 
     override fun onStart() {
         super.onStart()
 
-        startLocationRequest()
+        startLocationRequest(false)
     }
 
     override fun onStop() {
@@ -79,15 +91,16 @@ class StartActivity : AppCompatActivity() {
 
     }
 
-    fun startLocationRequest() {
+    private fun startLocationRequest(showToast: Boolean = true) {
         Log.v(TAG, "get location")
         var permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-
-            Toast.makeText(this, "updating your location", Toast.LENGTH_LONG).show()
+            if (showToast) {
+                Toast.makeText(this, "updating your location", Toast.LENGTH_LONG).show()
+            }
             val locationRequest = LocationRequest().apply {
-                this.interval = 1
-                this.fastestInterval = 1
+                this.interval = 10000
+                this.fastestInterval = 10000
                 this.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             }
 

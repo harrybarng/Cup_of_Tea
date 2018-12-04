@@ -14,4 +14,6 @@
     <string name="key_summary">SUMMARY</string>
     <string name="key_location_long">LONGITUDE</string>
     <string name="key_location_lat">LATITUDE</string>
+    <string name="key_location_obtained">LOCATION_OBTAINED</string>
+    <string name="key_setup_done">SET_UP_DONE</string>
 </resources>

@@ -91,6 +91,7 @@ class UploadActivity : AppCompatActivity() {
         db.collection("users").document(userId)
             .set(user)
             .addOnSuccessListener { documentReference ->
+                settings.edit().putBoolean(getString(R.string.key_setup_done), true).apply()
                 goToList()
 
                 //                Log.d(
