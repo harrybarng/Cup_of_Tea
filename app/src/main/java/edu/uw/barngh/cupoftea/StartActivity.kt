@@ -99,8 +99,8 @@ class StartActivity : AppCompatActivity() {
                 Toast.makeText(this, "updating your location", Toast.LENGTH_SHORT).show()
             }
             val locationRequest = LocationRequest().apply {
-                this.interval = 10000
-                this.fastestInterval = 10000
+                this.interval = 1
+                this.fastestInterval = 1
                 this.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             }
 

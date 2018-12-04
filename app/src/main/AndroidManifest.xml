@@ -52,10 +52,7 @@
         </activity>
         <activity android:name=".UploadActivity">
         </activity>
-        <activity android:name=".PhoneNumberActivity">
-        </activity>
-        <activity android:name=".MessagePreference">
-        </activity>
+
         <activity android:name=".MessagePreferenceActivity">
         </activity>
     </application>

@@ -53,6 +53,8 @@ class UploadActivity : AppCompatActivity() {
         user["gender_pref"] = settings.getString(getString(R.string.key_user_interested_gender), "") as String
         user["interests"] = settings.getString(getString(R.string.key_interests), "") as String
         user["summary"] = settings.getString(getString(R.string.key_summary), "") as String
+        user["contact_type"] = settings.getString(getString(R.string.contact_type), "PHONE") as String
+
         // dob
         val dobYear = settings.getInt(getString(R.string.key_user_birthyear), 1990)
         val dobMonth = settings.getInt(getString(R.string.key_user_birthmonth), 1)
@@ -79,13 +81,12 @@ class UploadActivity : AppCompatActivity() {
             )
 //        Log.d("tag1", user.toString())
 
-        user["location_provided"] = !(lat == 0F && lng == 0F)
+//        user["location_provided"] = !(lat == 0F && lng == 0F)
+        val userId = settings.getString(getString(R.string.contact_value), "2062224312") as String
+        user["user_Id"] = userId
 
         val db = FirebaseFirestore.getInstance()
 
-
-        val userId = "oh, just testing"
-        user["userId"] = userId
 
         Log.d("tag1", "$user")
         db.collection("users").document(userId)

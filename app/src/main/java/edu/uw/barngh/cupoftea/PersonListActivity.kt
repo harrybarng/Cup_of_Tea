@@ -315,26 +315,26 @@ class PersonListActivity : AppCompatActivity() {
             }
     }
 
-    fun readUserById(userId : String) {
-        val docRef = db.collection("users").document(userId)
-        docRef.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val document = task.result
-                if (document!!.exists()) {
-
-                    val age = getAge(document.get("dob") as Date)
-
-                    currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
-                        age, document.get("gender").toString(), document.get("gender_pref").toString(),
-                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
-                        document.get("summary").toString(), document.get("interests").toString(), DEFAULT_DISTANCE))
-
-                } else {
-                    Log.d(TAG, "No such user")
-                }
-            } else {
-                Log.d(TAG, "get failed with ", task.exception)
-            }
-        }
-    }
+//    fun readUserById(userId : String) {
+//        val docRef = db.collection("users").document(userId)
+//        docRef.get().addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                val document = task.result
+//                if (document!!.exists()) {
+//
+//                    val age = getAge(document.get("dob") as Date)
+//
+//                    currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
+//                        age, document.get("gender").toString(), document.get("gender_pref").toString(),
+//                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
+//                        document.get("summary").toString(), document.get("interests").toString(), DEFAULT_DISTANCE))
+//
+//                } else {
+//                    Log.d(TAG, "No such user")
+//                }
+//            } else {
+//                Log.d(TAG, "get failed with ", task.exception)
+//            }
+//        }
+//    }
 }

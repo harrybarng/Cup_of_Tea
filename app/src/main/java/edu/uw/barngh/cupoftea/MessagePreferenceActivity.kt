@@ -38,15 +38,15 @@ class MessagePreferenceActivity : AppCompatActivity() {
             Log.v("contact preference", contactPref.toString())
             if(contactPref == R.id.email_pref) {
                 sharedPref.edit()
-                    .putString(getString(R.string.contact_type), "EMAIL")
+                    .putString(getString(R.string.contact_type), "EMAIL").apply()
                 sharedPref.edit()
-                    .putString(getString(R.string.contact_value), findViewById<EditText>(R.id.email_address).text.toString())
+                    .putString(getString(R.string.contact_value), findViewById<EditText>(R.id.email_address).text.toString()).apply()
                 Log.v("contact preference",findViewById<EditText>(R.id.email_address).text.toString() )
             } else if (contactPref == R.id.text_pref) {
                 sharedPref.edit()
-                    .putString(getString(R.string.contact_type), "PHONE")
+                    .putString(getString(R.string.contact_type), "PHONE").apply()
                 sharedPref.edit()
-                    .putString(getString(R.string.contact_value), findViewById<EditText>(R.id.text_number).text.toString())
+                    .putString(getString(R.string.contact_value), findViewById<EditText>(R.id.text_number).text.toString()).apply()
                 Log.v("contact preference",findViewById<EditText>(R.id.text_number).text.toString() )
             }
 
