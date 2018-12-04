@@ -168,7 +168,8 @@ class PersonListActivity : AppCompatActivity() {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val genderInterested = sharedPref.getString(getString(R.string.key_user_interested_gender), DEFAULT_GENDER_PREF )
         val genderSelf = sharedPref.getString(getString(R.string.key_user_gender), DEFAULT_GENDER)
-        readUserByGender(genderSelf, genderInterested)
+        val selfName = sharedPref.getString(getString(R.string.key_user_name), "")
+        readUserByGender(genderSelf, genderInterested, selfName)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, newsList: List<User>) {
@@ -283,7 +284,7 @@ class PersonListActivity : AppCompatActivity() {
         return ( (now - dobSecond) / (24 * 60 * 60 * 365) ).toInt()
     }
 
-    fun readUserByGender(genderSelf: String, genderPref: String) {
+    fun readUserByGender(genderSelf: String, genderPref: String, selfName: String) {
         val selfGender =
         db.collection("users")
             .whereEqualTo("gender", genderPref)
@@ -295,6 +296,9 @@ class PersonListActivity : AppCompatActivity() {
 //                    Log.d(TAG, document.id + " => " + document.data)
                     val age = getAge(document.get("dob") as Date)
 
+                    if (document.get("first_name").toString() == selfName) { // self-exclusive
+                        continue;
+                    }
 
                     currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
                         age, document.get("gender").toString(), document.get("gender_pref").toString(),
