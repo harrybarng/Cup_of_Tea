@@ -31,13 +31,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
-                    android:padding="10dp"
+                    android:padding="3dp"
                     tools:ignore="RtlCompat" />
             <ImageView
                     android:id="@+id/list_gender_img"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="center"
                     android:src="@drawable/masculine"
             />
             <TextView
@@ -46,7 +45,16 @@
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.MaterialComponents.Body2"
                     android:text="age"
-
+            />
+            <TextView
+                    android:id="@+id/list_location"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Chip"
+                    android:textColor="@color/common_google_signin_btn_text_light"
+                    android:padding="3dp"
+                    android:gravity="right"
+                    android:text="location"
             />
         </LinearLayout>
 
