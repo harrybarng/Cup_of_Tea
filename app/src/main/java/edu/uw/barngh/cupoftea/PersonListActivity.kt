@@ -1,6 +1,7 @@
 package edu.uw.barngh.cupoftea
 
 import android.content.Intent
+import android.location.Location
 import android.media.Image
 import android.os.Bundle
 import android.os.Parcelable
@@ -37,6 +38,9 @@ class PersonListActivity : AppCompatActivity() {
     private var mTwoPane: Boolean = false
     private val DEFAULT_GENDER = "female"
     private val DEFAULT_GENDER_PREF = "male"
+    private val DEFAULT_LONGITUDE = -122.307958f
+    private val DEFAULT_LATITUDE = 47.653785f
+    private val METERS_TO_MILES_CONVERT_RATE = 1609.34
     var db = FirebaseFirestore.getInstance()
 
 
@@ -196,6 +200,8 @@ class PersonListActivity : AppCompatActivity() {
             if (mValues[position].gender == "female") {
                 holder.mGenderImage.setImageDrawable(getDrawable(R.drawable.femenine))
             }
+            var distance = getDistance(mValues[position])
+            holder.mLocation.text = distance.toString() + "mil away"
         }
 
         override fun getItemCount(): Int {
@@ -208,9 +214,21 @@ class PersonListActivity : AppCompatActivity() {
             val mImageView: NetworkImageView = view.findViewById(R.id.list_image)
             val mAgeView: TextView = view.findViewById<View>(R.id.list_age) as TextView
             val mGenderImage: ImageView = view.findViewById(R.id.list_gender_img)
-
-
+            val mLocation: TextView = view.findViewById<View>(R.id.list_location) as TextView
         }
+    }
+
+    private fun getDistance(user : User) : Int {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val loc1 = Location("")
+        loc1.setLatitude(sharedPref.getFloat(getString(R.string.key_location_lat), DEFAULT_LATITUDE).toDouble())
+        loc1.setLongitude(sharedPref.getFloat(getString(R.string.key_location_long), DEFAULT_LONGITUDE).toDouble())
+        val loc2 = Location("")
+        loc2.setLatitude(user.location["lat"]!!)
+        loc2.setLongitude(user.location["lng"]!!)
+        val distanceInMiles = loc1.distanceTo(loc2) / METERS_TO_MILES_CONVERT_RATE
+
+        return distanceInMiles.toInt()
     }
 
     @Parcelize
