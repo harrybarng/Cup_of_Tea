@@ -69,7 +69,10 @@
 
             <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/detail_distance_items"
+
+            >
                 <ImageView
                         android:id="@+id/detail_loc_img"
                         android:layout_width="25dp"
@@ -110,6 +113,19 @@
                         android:textSize="24sp"
                         android:textAllCaps="false"
                 />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:id="@+id/detail_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="Navigate"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bt_rounded"
+                    android:textSize="24sp"
+                    android:textAllCaps="false"
+            />
 
 
 

@@ -1,7 +1,6 @@
 package edu.uw.barngh.cupoftea
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -9,12 +8,7 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.TextView
-import edu.uw.barngh.cupoftea.R
-import org.w3c.dom.Text
-import java.lang.Long.getLong
-import java.util.*
 
 class AgeActivity : AppCompatActivity() {
 

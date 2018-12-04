@@ -14,7 +14,7 @@
                 android:title="Profile" />
         <item
                 android:id="@+id/nav_loc_switcher"
-                android:title="Location Service"
+                android:title="Share My Location"
                 android:icon="@drawable/ic_location_on_cherry"
                 app:actionLayout="@layout/layout_switch"
         />

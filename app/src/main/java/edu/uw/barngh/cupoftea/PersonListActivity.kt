@@ -230,9 +230,14 @@ class PersonListActivity : AppCompatActivity() {
             if (mValues[position].gender == "female") {
                 holder.mGenderImage.setImageDrawable(getDrawable(R.drawable.femenine))
             }
-            var distance = getDistance(mValues[position])
-            mValues[position].distance = distance
-            holder.mLocation.text = distance.toString() + "mil away"
+            if (mValues[position].location_visible) {
+                var distance = getDistance(mValues[position])
+                mValues[position].distance = distance
+                holder.mLocation.text = distance.toString() + "mile"
+            } else {
+                holder.mLocation.text = ""
+            }
+
         }
 
         override fun getItemCount(): Int {
@@ -269,7 +274,8 @@ class PersonListActivity : AppCompatActivity() {
         val age: Int,
         val gender:String,
         val gender_pref:String,
-        val location: MutableMap<String, Double> = mutableMapOf(),
+        val location_visible: Boolean,
+        val location: MutableMap<String, Double> = mutableMapOf("lat" to 0.toDouble(), "lng" to 0.toDouble()),
         val profile_picture: String,
         val summary: String,
         val interests: String,
@@ -310,6 +316,7 @@ class PersonListActivity : AppCompatActivity() {
                             age,
                             document.get("gender").toString(),
                             document.get("gender_pref").toString(),
+                            document.get("location_visible") as Boolean,
                             document.get("location") as MutableMap<String, Double>,
                             document.get("profile_picture").toString(),
                             document.get("summary").toString(),

@@ -1,6 +1,5 @@
 package edu.uw.barngh.cupoftea
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -10,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_person_detail.*
-import kotlinx.android.synthetic.main.person_detail.view.*
 import android.content.Intent
 import android.net.Uri
 import android.preference.PreferenceManager
+import android.widget.LinearLayout
 
 
 /**
@@ -51,15 +49,30 @@ class PersonDetailFragment : Fragment() {
         (rootView.findViewById<View>(R.id.detail_interests) as TextView).text =
                 if (user.interests == "null") "" else "Interests: ${user.interests}"
 
-        val distance = (rootView.findViewById<View>(R.id.detail_distance) as TextView)
-        distance.text = if (user.location.size == 0) "" else "${user.distance} miles away"
+
 
         val summary = (rootView.findViewById<View>(R.id.detail_summary) as TextView)
-        summary.text = if (user.summary == "null") "" else user.summary
+        summary.text = if (user.summary == "") "No Intro" else user.summary
 
         if (user.gender == "female") {
             (rootView.findViewById<View>(R.id.detail_gender_img) as ImageView).setImageResource(R.drawable.femenine)
         }
+
+        val distanceAssets = rootView.findViewById<LinearLayout>(R.id.detail_distance_items)
+        val navigateButton = rootView.findViewById<Button>(R.id.detail_navigation)
+        if (user.location_visible) {
+            (rootView.findViewById<View>(R.id.detail_distance) as TextView).text = if (user.location.size == 0) "" else "${user.distance} miles away"
+            navigateButton.setOnClickListener {
+                val gmmIntentUri = Uri.parse("https://maps.google.com/maps?q=loc:${ user.location["lat"]},${user.location["lng"]}")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                startActivity(mapIntent)
+            }
+        } else {
+            navigateButton.visibility = View.GONE
+            distanceAssets.visibility = View.GONE
+        }
+
 
         val connectButton= rootView.findViewById<Button>(R.id.detail_connect)
         if (user.contact_type == "PHONE") {
@@ -72,8 +85,8 @@ class PersonDetailFragment : Fragment() {
         connectButton.setOnClickListener {
             val settings = PreferenceManager.getDefaultSharedPreferences(activity)
             val myName = settings.getString(getString(R.string.key_user_name), "cup of tea user")
-            val connectButton = rootView.findViewById<Button>(R.id.detail_connect)
-            Log.d("tag1", "clicked")
+
+
             if (user.contact_type == "PHONE") {
                 val sendIntent = Intent(Intent.ACTION_VIEW)
                 sendIntent.data = Uri.parse("sms:")
