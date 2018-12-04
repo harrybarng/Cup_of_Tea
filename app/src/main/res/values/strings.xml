@@ -16,4 +16,6 @@
     <string name="key_location_lat">LATITUDE</string>
     <string name="key_location_obtained">LOCATION_OBTAINED</string>
     <string name="key_setup_done">SET_UP_DONE</string>
+    <string name="contact_type">CONTACTTYPE</string>
+    <string name="contact_value">CONTACTVALUE</string>
 </resources>

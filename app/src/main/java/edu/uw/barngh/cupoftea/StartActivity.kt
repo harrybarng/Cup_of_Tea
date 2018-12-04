@@ -96,7 +96,7 @@ class StartActivity : AppCompatActivity() {
         var permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             if (showToast) {
-                Toast.makeText(this, "updating your location", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "updating your location", Toast.LENGTH_SHORT).show()
             }
             val locationRequest = LocationRequest().apply {
                 this.interval = 10000
