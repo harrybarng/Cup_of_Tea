@@ -92,6 +92,7 @@ class PersonListActivity : AppCompatActivity() {
         var mDrawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
         val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setCheckedItem(R.id.nav_home)
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // set item as selected to persist highlight
             when(menuItem.itemId){
