@@ -89,7 +89,6 @@ class UploadActivity : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
 
-
         Log.d("tag1", "$user")
         db.collection("users").document(userId)
             .set(user)
