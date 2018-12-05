@@ -101,10 +101,10 @@ class ProfileActivity : AppCompatActivity() {
         var method = sharedProfile.getString(getString(R.string.contact_type), "NONE")
         var contactValue = sharedProfile.getString(getString(R.string.contact_value), "")
         if(method == "NONE") {
-            contactValue = ""
+            contactMethod.text = "No contact"
+        } else {
+            contactMethod.text = "${method.toLowerCase()}, $contactValue"
         }
-        contactMethod.text ="${method.toLowerCase()}, $contactValue"
-
 
         findViewById<Button>(R.id.reset_profile).setOnClickListener { v ->
             val intent = Intent(this, NameActivity::class.java)
