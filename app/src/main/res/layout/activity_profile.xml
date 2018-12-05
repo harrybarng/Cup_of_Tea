@@ -26,7 +26,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
+        <android.support.v4.widget.NestedScrollView
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -242,7 +242,7 @@
 
             </LinearLayout>
 
-        </FrameLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.NavigationView

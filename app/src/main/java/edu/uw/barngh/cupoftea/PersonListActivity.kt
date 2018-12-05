@@ -80,6 +80,7 @@ class PersonListActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person_list)
+        loadData()
 
         val toolbar = findViewById<View>(R.id.person_list_toolbar) as Toolbar
         setSupportActionBar(toolbar)
@@ -135,7 +136,7 @@ class PersonListActivity : AppCompatActivity() {
                     .commit()
             } else {
                 val arguments = Bundle()
-                val item: User = intent.extras!!.getParcelable("person_info_item")!!
+                val item: User = intent.extras.getParcelable("person_info_item")
 //                Log.d("tag1", "$item")
                 arguments.putParcelable("person_info_item", item)
                 val fragment = PersonDetailFragment()
@@ -148,7 +149,7 @@ class PersonListActivity : AppCompatActivity() {
 
         }
 
-        loadData()
+
 
     }
 
