@@ -11,10 +11,18 @@ Jake Jin, Harry Barng, Liuqing Ma, Wonjo Barng
 6. click profile to see your profile
 7. click reset to change/reset your profile
 
-## purpose ##
+## Purpose ##
 Dating apps have a huge market as everyone has demand of dating and looking for true love. An online dating app through the mobile context will be more convenient and faster for people to find someone they like whenever they are. Dating should be fun and healthy, but current online dating solutions can be frustrating. Some weaknesses such as unlimited matches, older community, weak sharing interests make it harder for UW community to find true love. We will build a new dating app ‘Cup of Coffee’ targeting to UW current students and alumnus, with following functionalities:
 Setup my profile
 * Browse a list of people near me
 * View the detailed profile of the one I’m interested in
 * Get each other’s current geo location and see how far we are
 * Easily message to the one I selected
+
+## Mobile Sensors/features used ##
+
+1. Request Location and calculate distance based on lat and lng, user can choose to hide location later.
+2. Request Camera and/or Photo Album to upload a profile picture (to Firebase).
+3. Send intent to message/mail for communication, to Google maps for navigation and location viewing.
+4. Master/detail view to display a list of available people.
+5. Manage my privacy settings(especially location) and view/reset my profile.
