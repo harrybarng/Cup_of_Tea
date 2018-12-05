@@ -54,6 +54,8 @@ class PersonDetailFragment : Fragment() {
 
         if (user.gender == "female") {
             (rootView.findViewById<View>(R.id.detail_gender_img) as ImageView).setImageResource(R.drawable.femenine)
+        } else if (user.gender == "other") {
+            (rootView.findViewById<View>(R.id.detail_gender_img) as ImageView).setImageResource(R.drawable.gn)
         }
 
         val distanceAssets = rootView.findViewById<LinearLayout>(R.id.detail_distance_items)

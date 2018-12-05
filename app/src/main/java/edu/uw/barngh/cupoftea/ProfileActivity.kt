@@ -19,6 +19,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.android.volley.toolbox.NetworkImageView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
@@ -77,8 +78,12 @@ class ProfileActivity : AppCompatActivity() {
 //        name.setText(sharedPref.getString(getString(R.string.key_user_name), "name"))
         name.text = sharedProfile.getString(getString(R.string.key_user_name), "Name")
 
-        var summary = findViewById<TextView>(R.id.detail_summary)
-        summary.text = sharedProfile.getString(getString(R.string.key_summary), "no summary")
+        val summary = sharedProfile.getString(getString(R.string.key_summary), "")
+        findViewById<TextView>(R.id.detail_summary).text = if (summary == "") {
+            "No summary"
+        } else {
+            summary
+        }
 
 
         var age = findViewById<TextView>(R.id.detail_age)
@@ -92,22 +97,30 @@ class ProfileActivity : AppCompatActivity() {
         interests.text = sharedProfile.getString(getString(R.string.key_interests), "no interests")
 
         var myGenderImg = findViewById<ImageView>(R.id.my_gender_img)
-        myGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_gender), "no interests"))))
+        myGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_gender), "other"))))
 
         var interGenderImg = findViewById<ImageView>(R.id.interested_gender_img)
-        interGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_interested_gender), "no interests"))))
+        interGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_interested_gender), "other"))))
 
 
-        var profileImage = findViewById<ImageView>(R.id.profile_image)
+
+        val profileImage = findViewById<NetworkImageView>(R.id.profile_image)
+        profileImage.setDefaultImageResId(R.drawable.profile_picture_placeholder)
+        val profilePicURL = sharedProfile.getString(getString(R.string.key_profile_picture), "")
+        if (profilePicURL != "") {
+            profileImage.setImageUrl(profilePicURL, VolleyService.getInstance(this).imageLoader)
+
+        }
+
         //set profile image here
 
         var contactMethod = findViewById<TextView>(R.id.contactValue)
         var method = sharedProfile.getString(getString(R.string.contact_type), "NONE")
         var contactValue = sharedProfile.getString(getString(R.string.contact_value), "")
         if(method == "NONE") {
-            contactValue = "";
+            contactValue = ""
         }
-        contactMethod.text ="$method $contactValue"
+        contactMethod.text ="${method.toLowerCase()}, $contactValue"
 
 
         findViewById<Button>(R.id.reset_profile).setOnClickListener { v ->

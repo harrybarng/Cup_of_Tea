@@ -232,12 +232,14 @@ class PersonListActivity : AppCompatActivity() {
             holder.itemView.setOnClickListener(showDetail)
             holder.mImageView.setDefaultImageResId(R.drawable.profile_picture_placeholder)
 
-            if (mValues[position].profile_picture != null) {
+            if (mValues[position].profile_picture != "") {
                 holder.mImageView.setImageUrl(mValues[position].profile_picture, VolleyService.getInstance(mParentActivity).imageLoader)
             }
             holder.mAgeView.text = mValues[position].age.toString()
             if (mValues[position].gender == "female") {
                 holder.mGenderImage.setImageDrawable(getDrawable(R.drawable.femenine))
+            } else if (mValues[position].gender == "other") {
+                holder.mGenderImage.setImageDrawable(getDrawable(R.drawable.gn))
             }
             if (mValues[position].location_visible) {
                 var distance = getDistance(mValues[position])
