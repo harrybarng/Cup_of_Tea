@@ -93,24 +93,26 @@ class PersonListActivity : AppCompatActivity() {
 
         if (this.mTwoPane) {
 
-            if (savedInstanceState != null ) {
+//            if (savedInstanceState != null ) {
 
                 val fragment = PersonWelcomeFragment()
                 this.supportFragmentManager.beginTransaction()
                     .replace(R.id.person_detail_container, fragment)
 //                    .addToBackStack("root")
                     .commit()
-            } else {
-                val arguments = Bundle()
-                val item: User = intent.extras!!.getParcelable("person_info_item")!!
-                arguments.putParcelable("person_info_item", item)
-                val fragment = PersonDetailFragment()
-                fragment.arguments = arguments
-                this.supportFragmentManager.beginTransaction()
-                    .replace(R.id.person_detail_container, fragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
+//            }
+//            else {
+//                val arguments = Bundle()
+//                Log.d("tag1", intent.extras.toString())
+//                val item: User = intent.extras!!.getParcelable("person_info_item")!!
+//                arguments.putParcelable("person_info_item", item)
+//                val fragment = PersonDetailFragment()
+//                fragment.arguments = arguments
+//                this.supportFragmentManager.beginTransaction()
+//                    .replace(R.id.person_detail_container, fragment)
+//                    .addToBackStack(null)
+//                    .commit()
+//            }
         }
         loadData()
     }
