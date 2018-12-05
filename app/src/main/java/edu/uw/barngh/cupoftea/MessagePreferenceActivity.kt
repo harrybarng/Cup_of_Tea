@@ -48,6 +48,11 @@ class MessagePreferenceActivity : AppCompatActivity() {
                 sharedPref.edit()
                     .putString(getString(R.string.contact_value), findViewById<EditText>(R.id.text_number).text.toString()).apply()
                 Log.v("contact preference",findViewById<EditText>(R.id.text_number).text.toString() )
+            } else {
+                sharedPref.edit()
+                    .putString(getString(R.string.contact_type), "NONE").apply()
+                sharedPref.edit()
+                    .putString(getString(R.string.contact_value), "").apply()
             }
 
             val intent = Intent(this, ProfilePictureActivity::class.java)

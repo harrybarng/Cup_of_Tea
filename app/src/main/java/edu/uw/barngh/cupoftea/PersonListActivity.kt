@@ -100,7 +100,8 @@ class PersonListActivity : AppCompatActivity() {
 
                 }
                 R.id.nav_profile -> {
-
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    this.startActivity(intent)
                 }
             }
             Log.v("hhhh", "1")

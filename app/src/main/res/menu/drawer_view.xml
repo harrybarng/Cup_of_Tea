@@ -6,8 +6,8 @@
         <item
                 android:id="@+id/nav_home"
                 android:icon="@drawable/ic_home_cherry"
-                android:title="Home"
-                android:checked="true"/>
+                android:title="Home"/>
+                <!--android:checked="true"-->
         <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_person_cherry"

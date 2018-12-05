@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:id="@+id/drawer_layout"
+                                        android:fitsSystemWindows="true"
+                                        tools:context=".ProfileActivity">
+
+    <android.support.design.widget.CoordinatorLayout android:layout_width="match_parent"
+                                                     android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/person_list_toolbar"
+                    android:background="?attr/colorPrimary"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+            >
+                <ImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="My Name: "
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                              />
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              android:id="@+id/detail_name"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                    />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="Summary: "
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                    />
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              android:id="@+id/detail_summary"
+                              style="@style/TextAppearance.MaterialComponents.Body2"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:textIsSelectable="true"
+                              tools:context=".personDetailFragment" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="My Birthdate: "
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                    />
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              android:id="@+id/detail_age"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="20dp"
+                              android:layout_marginBottom="20dp"
+                              android:text="Age"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="My gender: "
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                    />
+
+                    <ImageView
+                            android:id="@+id/my_gender_img"
+                            android:layout_width="21dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/masculine"
+                    />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="Interested gender: "
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                    />
+
+                    <ImageView
+                            android:id="@+id/interested_gender_img"
+                            android:layout_width="21dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/masculine"
+                    />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="My interests: "
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                    />
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              android:id="@+id/detail_interests"
+                              style="@style/TextAppearance.MaterialComponents.Body2"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="interests"
+                              android:textIsSelectable="true"
+                              tools:context=".personDetailFragment" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="Contact Method: "
+                              android:textIsSelectable="true"
+                              android:fillViewport="true"
+                    />
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              android:id="@+id/contactValue"
+                              style="@style/TextAppearance.MaterialComponents.Body2"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:textIsSelectable="true"
+                              tools:context=".personDetailFragment" />
+
+                </LinearLayout>
+
+
+
+                <Button
+                        android:layout_margin="20dp"
+                        android:id="@+id/reset_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:text="Reset Profile"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bt_rounded"
+                        android:textSize="24sp"
+                        android:textAllCaps="false"
+                />
+
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+    <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/drawer_view"
+            app:itemTextColor="@drawable/menu_select"
+            app:itemIconTint="@drawable/menu_select"/>
+
+
+</android.support.v4.widget.DrawerLayout >
