@@ -88,7 +88,7 @@ class ProfileActivity : AppCompatActivity() {
         myGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_gender), "no interests"))))
 
         var interGenderImg = findViewById<ImageView>(R.id.interested_gender_img)
-        myGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_interested_gender), "no interests"))))
+        interGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_interested_gender), "no interests"))))
 
 
         var profileImage = findViewById<ImageView>(R.id.profile_image)
