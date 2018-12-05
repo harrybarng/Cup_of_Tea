@@ -104,6 +104,9 @@ class ProfileActivity : AppCompatActivity() {
         var contactMethod = findViewById<TextView>(R.id.contactValue)
         var method = sharedProfile.getString(getString(R.string.contact_type), "NONE")
         var contactValue = sharedProfile.getString(getString(R.string.contact_value), "")
+        if(method == "NONE") {
+            contactValue = "";
+        }
         contactMethod.text ="$method $contactValue"
 
 

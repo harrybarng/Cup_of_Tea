@@ -91,11 +91,9 @@
                               style="@style/TextAppearance.MaterialComponents.Body2"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
-                              android:textIsSelectable="true"
-                              tools:context=".personDetailFragment" />
+                              android:textIsSelectable="true" />
 
                 </LinearLayout>
-
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -115,14 +113,15 @@
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
                               android:id="@+id/detail_age"
-                              style="@style/TextAppearance.MaterialComponents.Body1"
-                              android:layout_width="wrap_content"
+                              style="@style/TextAppearance.MaterialComponents.Body2"
+                              android:layout_width="match_parent"
                               android:layout_height="wrap_content"
-                              android:layout_marginTop="20dp"
-                              android:layout_marginBottom="20dp"
+                              android:textIsSelectable="true"
                               android:text="Age"/>
 
                 </LinearLayout>
+
+
 
                 <LinearLayout
                         android:layout_width="match_parent"
