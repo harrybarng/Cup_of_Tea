@@ -116,8 +116,6 @@ class PersonListActivity : AppCompatActivity() {
         }
 
 
-
-
         
         if (findViewById<View>(R.id.person_detail_container) != null) {
             this.mTwoPane = true
@@ -157,6 +155,19 @@ class PersonListActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(GravityCompat.START)
+                var switch = findViewById<SwitchCompat>(R.id.drawer_switch)
+                switch.setOnCheckedChangeListener { buttonView, isChecked ->
+                    Log.v("hhhh", "3")
+                    val locVis = PreferenceManager.getDefaultSharedPreferences(this)
+
+                    if(isChecked){
+                        locVis.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
+                        Toast.makeText(this, "Others can view your location", Toast.LENGTH_SHORT).show()
+                    }else{
+                        locVis.edit().putBoolean(getString(R.string.key_location_visible), false).apply()
+                        Toast.makeText(this, "Others can no longer view your location", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 true
             }
 
