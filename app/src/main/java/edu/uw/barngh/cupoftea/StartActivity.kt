@@ -17,11 +17,9 @@ import com.google.android.gms.location.*
 
 class StartActivity : AppCompatActivity() {
 
-    var MY_PERMISSIONS_REQUEST_LOC : Int = 0
     var mCurrentLocation : Location? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
-    var locationRequest : LocationRequest? = null
     val TAG = "startlocation"
     private val LOCATION_REQUEST_CODE = 1
 
@@ -31,13 +29,8 @@ class StartActivity : AppCompatActivity() {
 
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
-
                 fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-//        Log.d("tag1", sharedPref.getBoolean(getString(R.string.key_setup_done), true).toString())
 
-//            val intent = Intent(this, NameActivity::class.java)
-//            val intent = Intent(this, PersonListActivity::class.java)
-//            this.startActivity(intent)
         if (!sharedPref.getBoolean(getString(R.string.key_setup_done), false)) {
             Log.d("tag1", sharedPref.getBoolean(getString(R.string.key_setup_done), true).toString())
             startLocationRequest()
@@ -67,14 +60,8 @@ class StartActivity : AppCompatActivity() {
                     sharedPref.edit().putBoolean(getString(R.string.key_location_obtained), false).apply()
                     val intent = Intent(this, NameActivity::class.java)
                     this.startActivity(intent)
-
                 }
-
-
         }
-
-
-
     }
 
     override fun onStart() {
@@ -137,6 +124,4 @@ class StartActivity : AppCompatActivity() {
 
         }
     }
-
-
 }

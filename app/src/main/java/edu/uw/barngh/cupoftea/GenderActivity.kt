@@ -1,14 +1,11 @@
 package edu.uw.barngh.cupoftea
 
-import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.widget.Button
 import android.widget.ImageButton
-import edu.uw.barngh.cupoftea.R
 
 class GenderActivity : AppCompatActivity() {
 
@@ -42,7 +39,6 @@ class GenderActivity : AppCompatActivity() {
                 findViewById<ImageButton>(R.id.male_button).setImageResource(R.drawable.bt_male)
                 findViewById<Button>(R.id.bt_get_started).text = "Skip"
             }
-
         }
 
         findViewById<ImageButton>(R.id.female_button).setOnClickListener{ v ->
@@ -70,9 +66,6 @@ class GenderActivity : AppCompatActivity() {
                 settings.edit().putString(getString(R.string.key_user_gender), finalChoice).apply()
                 val intent = Intent(this, GenderInterestActivity::class.java)
                 this.startActivity(intent)
-
         }
-
-
     }
 }

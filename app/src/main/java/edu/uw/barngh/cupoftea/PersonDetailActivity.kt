@@ -2,7 +2,6 @@ package edu.uw.barngh.cupoftea
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -18,11 +17,9 @@ import com.android.volley.toolbox.NetworkImageView
  */
 class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollapsibleToolbar  {
 
-
     override fun setupToolbar() {
         val toolbar = findViewById<View>(R.id.detail_toolbar) as Toolbar
         setSupportActionBar(toolbar)
-
 
         // Show the Up button in the action bar.
         val actionBar = supportActionBar
@@ -73,7 +70,6 @@ class PersonDetailActivity : AppCompatActivity(), PersonDetailFragment.HasCollap
             startActivity(intent)
         }
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
