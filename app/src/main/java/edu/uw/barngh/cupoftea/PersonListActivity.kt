@@ -15,14 +15,17 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.android.volley.toolbox.NetworkImageView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.synthetic.main.abc_list_menu_item_checkbox.view.*
 import kotlinx.android.synthetic.main.person_detail.*
 import news.uwgin.uw.edu.news.PersonWelcomeFragment
 import java.util.Date
@@ -92,7 +95,17 @@ class PersonListActivity : AppCompatActivity() {
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // set item as selected to persist highlight
-            menuItem.isChecked = true
+            when(menuItem.itemId){
+                R.id.nav_home -> {
+
+                }
+                R.id.nav_profile -> {
+
+                }
+            }
+            Log.v("hhhh", "1")
+
+            Log.v("hhhh", "3")
             // close drawer when item is tapped
             mDrawerLayout.closeDrawers()
 
@@ -101,6 +114,9 @@ class PersonListActivity : AppCompatActivity() {
 
             true
         }
+
+
+
 
         
         if (findViewById<View>(R.id.person_detail_container) != null) {
@@ -143,9 +159,11 @@ class PersonListActivity : AppCompatActivity() {
                 findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(GravityCompat.START)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
     private fun setFAB(fab_type: String) {
         val fab = findViewById<View>(R.id.fab) as FloatingActionButton

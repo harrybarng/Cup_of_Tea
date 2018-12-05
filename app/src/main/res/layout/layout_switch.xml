@@ -8,6 +8,8 @@
             android:checked="true"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:text=""/>
+            android:text=""
+            android:textOn="On"
+            android:textOff="Off"/>
 
 </LinearLayout>
