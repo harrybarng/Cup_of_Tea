@@ -2,7 +2,6 @@ package edu.uw.barngh.cupoftea
 
 import android.content.Intent
 import android.location.Location
-import android.media.Image
 import android.os.Bundle
 import android.os.Parcelable
 import android.preference.PreferenceManager
@@ -24,9 +23,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.toolbox.NetworkImageView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.abc_list_menu_item_checkbox.view.*
-import kotlinx.android.synthetic.main.person_detail.*
 import news.uwgin.uw.edu.news.PersonWelcomeFragment
 import java.util.Date
 
@@ -151,21 +150,45 @@ class PersonListActivity : AppCompatActivity() {
 
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        if (menu != null) {
+            menuInflater.inflate(R.menu.drawer_view, menu)
+            val settings = PreferenceManager.getDefaultSharedPreferences(this)
+            val switch = findViewById<SwitchCompat>(R.id.drawer_switch)
+            switch.isChecked = settings.getBoolean(getString(R.string.key_location_visible), true)
+        }
+        return super.onCreateOptionsMenu(menu)
+
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(GravityCompat.START)
-                var switch = findViewById<SwitchCompat>(R.id.drawer_switch)
+                val switch = findViewById<SwitchCompat>(R.id.drawer_switch)
                 switch.setOnCheckedChangeListener { buttonView, isChecked ->
                     Log.v("hhhh", "3")
                     val locVis = PreferenceManager.getDefaultSharedPreferences(this)
 
                     if(isChecked){
                         locVis.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
+//                        Log.d("tag1", locVis.getString(getString(R.string.contact_value), ""))
+
                         Toast.makeText(this, "Others can view your location", Toast.LENGTH_SHORT).show()
                     }else{
                         locVis.edit().putBoolean(getString(R.string.key_location_visible), false).apply()
                         Toast.makeText(this, "Others can no longer view your location", Toast.LENGTH_SHORT).show()
+                    }
+
+                    val db = FirebaseFirestore.getInstance()
+                    val data = HashMap<String, Any>()
+                    data["location_visible"] = locVis.getBoolean(getString(R.string.key_location_visible), true)
+                    val primaryKey = locVis.getString(getString(R.string.contact_value), "")
+                    if (primaryKey != "") {
+                        db.collection("users").document(primaryKey)
+                            .set(data, SetOptions.merge())
                     }
                 }
                 true
