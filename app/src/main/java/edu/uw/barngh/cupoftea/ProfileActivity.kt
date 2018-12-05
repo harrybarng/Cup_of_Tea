@@ -1,7 +1,5 @@
 package edu.uw.barngh.cupoftea
 
-import android.content.ClipData
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -41,8 +39,6 @@ class ProfileActivity : AppCompatActivity() {
 
         var mDrawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
-
-
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_profile)
         navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -65,17 +61,10 @@ class ProfileActivity : AppCompatActivity() {
             true
         }
 
-
         var sharedProfile = PreferenceManager.getDefaultSharedPreferences(this)
 
-
         var name = findViewById<TextView>(R.id.detail_name)
-//        val sharedPref = this.getSharedPreferences(
-//            getString(R.string.key_user_name),
-//            Context.MODE_PRIVATE
-//        )
 
-//        name.setText(sharedPref.getString(getString(R.string.key_user_name), "name"))
         name.text = sharedProfile.getString(getString(R.string.key_user_name), "Name")
 
         val summary = sharedProfile.getString(getString(R.string.key_summary), "")
@@ -85,13 +74,11 @@ class ProfileActivity : AppCompatActivity() {
             summary
         }
 
-
         var age = findViewById<TextView>(R.id.detail_age)
         var day = sharedProfile.getInt(getString(R.string.key_user_birthday), 0)
         var month = sharedProfile.getInt(getString(R.string.key_user_birthmonth), 0)
         var year = sharedProfile.getInt(getString(R.string.key_user_birthyear), 0)
         age.text = "$month / $day / $year"
-
 
         var interests = findViewById<TextView>(R.id.detail_interests)
         interests.text = sharedProfile.getString(getString(R.string.key_interests), "no interests")
@@ -102,18 +89,14 @@ class ProfileActivity : AppCompatActivity() {
         var interGenderImg = findViewById<ImageView>(R.id.interested_gender_img)
         interGenderImg.setImageDrawable(getDrawable(getGenderImage(sharedProfile.getString(getString(R.string.key_user_interested_gender), "other"))))
 
-
-
         val profileImage = findViewById<NetworkImageView>(R.id.profile_image)
         profileImage.setDefaultImageResId(R.drawable.profile_picture_placeholder)
         val profilePicURL = sharedProfile.getString(getString(R.string.key_profile_picture), "")
         if (profilePicURL != "") {
             profileImage.setImageUrl(profilePicURL, VolleyService.getInstance(this).imageLoader)
-
         }
 
         //set profile image here
-
         var contactMethod = findViewById<TextView>(R.id.contactValue)
         var method = sharedProfile.getString(getString(R.string.contact_type), "NONE")
         var contactValue = sharedProfile.getString(getString(R.string.contact_value), "")
@@ -128,7 +111,6 @@ class ProfileActivity : AppCompatActivity() {
             this.startActivity(intent)
         }
 //        interests.setText()
-
     }
 
     fun getGenderImage(gender: String):Int {
@@ -139,7 +121,6 @@ class ProfileActivity : AppCompatActivity() {
         }
         return R.drawable.gn
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -152,8 +133,6 @@ class ProfileActivity : AppCompatActivity() {
 
                     if(isChecked){
                         locVis.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
-//                        Log.d("tag1", locVis.getString(getString(R.string.contact_value), ""))
-
                         Toast.makeText(this, "Others can view your location", Toast.LENGTH_SHORT).show()
                     }else{
                         locVis.edit().putBoolean(getString(R.string.key_location_visible), false).apply()
