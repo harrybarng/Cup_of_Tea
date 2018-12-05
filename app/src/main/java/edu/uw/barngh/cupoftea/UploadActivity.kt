@@ -73,8 +73,8 @@ class UploadActivity : AppCompatActivity() {
 //        Log.d("tag1", "$user[\"dob\"]")
 
         // location
-        val lat = settings.getFloat(getString(R.string.key_location_lat), 0F)
-        val lng = settings.getFloat(getString(R.string.key_location_long), 0F)
+        val lat = settings.getFloat(getString(R.string.key_location_lat), 47.608013F)
+        val lng = settings.getFloat(getString(R.string.key_location_long), (-122.335167).toFloat())
         user["location"] = hashMapOf(
                 "lat" to lat,
                 "lng" to lng
