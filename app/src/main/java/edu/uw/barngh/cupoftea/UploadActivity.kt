@@ -82,8 +82,7 @@ class UploadActivity : AppCompatActivity() {
 //        Log.d("tag1", user.toString())
 
 //        user["location_provided"] = !(lat == 0F && lng == 0F)
-        val locVis = PreferenceManager.getDefaultSharedPreferences(this)
-        locVis.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
+        settings.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
         user["location_visible"] = settings.getBoolean(getString(R.string.key_location_visible), true)
         val userId = settings.getString(getString(R.string.contact_value), "2062224312") as String
         user["userId"] = userId
