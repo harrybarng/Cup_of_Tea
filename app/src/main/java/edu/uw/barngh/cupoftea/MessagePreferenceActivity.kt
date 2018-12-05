@@ -74,7 +74,6 @@ class MessagePreferenceActivity : AppCompatActivity() {
 
     private fun randomSeriesGenerator(): String {
         val res = ThreadLocalRandom.current().nextInt(1, 100000)
-        Log.v("number generated", res.toString())
         return res.toString();
     }
 }
