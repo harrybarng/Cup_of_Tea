@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
@@ -17,6 +18,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -36,7 +40,10 @@ class ProfileActivity : AppCompatActivity() {
 
         var mDrawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
+
+
         val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setCheckedItem(R.id.nav_profile)
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // set item as selected to persist highlight
             when(menuItem.itemId){
@@ -122,6 +129,30 @@ class ProfileActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(GravityCompat.START)
+                val switch = findViewById<SwitchCompat>(R.id.drawer_switch)
+                switch.setOnCheckedChangeListener { buttonView, isChecked ->
+                    Log.v("hhhh", "3")
+                    val locVis = PreferenceManager.getDefaultSharedPreferences(this)
+
+                    if(isChecked){
+                        locVis.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
+//                        Log.d("tag1", locVis.getString(getString(R.string.contact_value), ""))
+
+                        Toast.makeText(this, "Others can view your location", Toast.LENGTH_SHORT).show()
+                    }else{
+                        locVis.edit().putBoolean(getString(R.string.key_location_visible), false).apply()
+                        Toast.makeText(this, "Others can no longer view your location", Toast.LENGTH_SHORT).show()
+                    }
+
+                    val db = FirebaseFirestore.getInstance()
+                    val data = HashMap<String, Any>()
+                    data["location_visible"] = locVis.getBoolean(getString(R.string.key_location_visible), true)
+                    val primaryKey = locVis.getString(getString(R.string.contact_value), "")
+                    if (primaryKey != "") {
+                        db.collection("users").document(primaryKey)
+                            .set(data, SetOptions.merge())
+                    }
+                }
                 true
             }
 
