@@ -42,24 +42,26 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:hint="click select Birthday"
+            android:hint="None selected"
             android:id="@+id/showDate"
             android:gravity="center_horizontal"
             android:textSize="24sp"
             android:layout_below="@id/dateQuestion"/>
 
     <Button
-            android:layout_width="match_parent"
+            android:id="@+id/choose"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Click to enter date"
+            android:fontFamily="sans-serif"
+            app:layout_constraintTop_toBottomOf="@id/showDate"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/showDate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:hint="enter Birthday"
-            android:id="@+id/choose"
-            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bt_calender"
             android:textSize="24sp"
-            android:layout_below="@id/dateQuestion"/>
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"/>
 
 
     <!--fragment dialog-->
