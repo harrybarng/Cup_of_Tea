@@ -1,18 +1,14 @@
 package edu.uw.barngh.cupoftea
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import edu.uw.barngh.cupoftea.R
-import org.w3c.dom.Text
 
 class NameActivity : AppCompatActivity() {
 

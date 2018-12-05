@@ -1,14 +1,10 @@
 package edu.uw.barngh.cupoftea
 
-import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.text.BoringLayout
 import android.widget.*
-import edu.uw.barngh.cupoftea.R
 
 
 class InterestAcitivity : AppCompatActivity() {
@@ -23,7 +19,6 @@ class InterestAcitivity : AppCompatActivity() {
         for(i in 1..6) {
             checker.add("")
         }
-
 
         fun buttonState(){
             if(pickCounter == 3){
@@ -70,7 +65,6 @@ class InterestAcitivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
             if(pickCounter == 3) {
-
                 var interestString = ""
                 var counter = 0
                 for (i in 0..5){
@@ -90,6 +84,5 @@ class InterestAcitivity : AppCompatActivity() {
                 this.startActivity(intent)
             }
         }
-
     }
 }

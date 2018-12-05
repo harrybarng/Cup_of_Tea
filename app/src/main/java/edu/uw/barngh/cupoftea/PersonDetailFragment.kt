@@ -49,8 +49,6 @@ class PersonDetailFragment : Fragment() {
         (rootView.findViewById<View>(R.id.detail_interests) as TextView).text =
                 if (user.interests == "null") "" else "Interests: ${user.interests}"
 
-
-
         val summary = (rootView.findViewById<View>(R.id.detail_summary) as TextView)
         summary.text = if (user.summary == "") "No Intro" else user.summary
 

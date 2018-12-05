@@ -12,7 +12,6 @@ import com.android.volley.toolbox.Volley
 class VolleyService private constructor(ctx: Context) { //private constructor; cannot instantiate directly
     companion object {
         private var instance: VolleyService? = null //the single instance of this singleton
-
         //call this "factory" method to access the Singleton
         fun getInstance(ctx: Context): VolleyService {
             //only create the singleton if it doesn't exist yet

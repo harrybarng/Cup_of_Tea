@@ -1,6 +1,5 @@
 package edu.uw.barngh.cupoftea
 
-import android.app.Person
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -70,7 +69,6 @@ class UploadActivity : AppCompatActivity() {
         dob.set(Calendar.MILLISECOND, 0)
 
         user["dob"] = Date(dob.timeInMillis)
-//        Log.d("tag1", "$user[\"dob\"]")
 
         // location
         val lat = settings.getFloat(getString(R.string.key_location_lat), 47.608013F)
@@ -79,9 +77,7 @@ class UploadActivity : AppCompatActivity() {
                 "lat" to lat,
                 "lng" to lng
             )
-//        Log.d("tag1", user.toString())
 
-//        user["location_provided"] = !(lat == 0F && lng == 0F)
         settings.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
         user["location_visible"] = settings.getBoolean(getString(R.string.key_location_visible), true)
         val userId = settings.getString(getString(R.string.contact_value), "2062224312") as String
@@ -95,17 +91,10 @@ class UploadActivity : AppCompatActivity() {
             .addOnSuccessListener { documentReference ->
                 settings.edit().putBoolean(getString(R.string.key_setup_done), true).apply()
                 goToList()
-
-                //                Log.d(
-//                    TAG, "A new user added with ID: " + userId
-//                )
                 Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Upload Failed", Toast.LENGTH_SHORT).show()
             }
-
     }
-
-
 }

@@ -1,26 +1,14 @@
 package edu.uw.barngh.cupoftea
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import edu.uw.barngh.cupoftea.R
-import java.io.File
-import android.content.DialogInterface
-import android.os.Build
 import android.preference.PreferenceManager
-import android.support.v7.app.AlertDialog
-import android.widget.Toast
-import com.google.firebase.firestore.FirebaseFirestore
-import java.util.Date
-
-
 
 
 class SummaryActivity : AppCompatActivity() {
@@ -73,7 +61,6 @@ class SummaryActivity : AppCompatActivity() {
             }}
 
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
-            //            val intent = Intent(this, AgeActivity::class.java)
             if(next) {
                 val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
                 sharedPref.edit().putString(getString(R.string.key_summary), findViewById<EditText>(R.id.summary).text.toString()).apply()
@@ -82,11 +69,4 @@ class SummaryActivity : AppCompatActivity() {
             }
         }
     }
-
-
-
-
-
-
-
 }

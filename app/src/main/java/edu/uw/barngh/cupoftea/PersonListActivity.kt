@@ -52,35 +52,8 @@ class PersonListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        // adding fake data
-//        var user = hashMapOf<String, Any>(
-//            "userId" to "2061234752",
-//            "first_name" to "Ross",
-//            "last_name" to "Black",
-//            "gender" to "male",
-//            "gender_pref" to "female",
-//            "age" to 25,
-//            "location" to hashMapOf("lat" to 43.355223,"lng" to -122.412334),
-//            "summary" to "A machine learning hacker!",
-//            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062221001.jpeg?alt=media&token=074c1eeb-fa31-4aa2-b02f-6e4eed4668c7"
-//        )
-//        FirebaseDB().writeNewUser(user)
-//
-//        user = hashMapOf<String, Any>(
-//            "userId" to "2061236783",
-//            "first_name" to "Ken",
-//            "last_name" to "Wang",
-//            "gender" to "male",
-//            "gender_pref" to "female",
-//            "age" to 21,
-//            "location" to hashMapOf("lat" to 46.632794,"lng" to -121.318786),
-//            "summary" to "I hate raining but love Seattle!",
-//            "profile_picture" to "https://firebasestorage.googleapis.com/v0/b/cup-of-coffee-401b9.appspot.com/o/profile_pics%2F2062221002.jpeg?alt=media&token=859f5fc1-0d95-46c0-b045-858802928301")
-//        FirebaseDB().writeNewUser(user)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person_list)
-        loadData()
 
         val toolbar = findViewById<View>(R.id.person_list_toolbar) as Toolbar
         setSupportActionBar(toolbar)
@@ -105,20 +78,13 @@ class PersonListActivity : AppCompatActivity() {
                     this.startActivity(intent)
                 }
             }
-            Log.v("hhhh", "1")
-
-            Log.v("hhhh", "3")
             // close drawer when item is tapped
             mDrawerLayout.closeDrawers()
-
             // Add code here to update the UI based on the item selected
             // For example, swap UI fragments here
-
             true
         }
 
-
-        
         if (findViewById<View>(R.id.person_detail_container) != null) {
             this.mTwoPane = true
         }
@@ -136,8 +102,7 @@ class PersonListActivity : AppCompatActivity() {
                     .commit()
             } else {
                 val arguments = Bundle()
-                val item: User = intent.extras.getParcelable("person_info_item")
-//                Log.d("tag1", "$item")
+                val item: User = intent.extras!!.getParcelable("person_info_item")!!
                 arguments.putParcelable("person_info_item", item)
                 val fragment = PersonDetailFragment()
                 fragment.arguments = arguments
@@ -146,23 +111,18 @@ class PersonListActivity : AppCompatActivity() {
                     .addToBackStack(null)
                     .commit()
             }
-
         }
-
-
-
+        loadData()
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         if (menu != null) {
             val settings = PreferenceManager.getDefaultSharedPreferences(this)
             val switch = findViewById<SwitchCompat>(R.id.drawer_switch)
             switch.isChecked = settings.getBoolean(getString(R.string.key_location_visible), true)
         }
         return super.onCreateOptionsMenu(menu)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -176,8 +136,6 @@ class PersonListActivity : AppCompatActivity() {
 
                     if(isChecked){
                         locVis.edit().putBoolean(getString(R.string.key_location_visible), true).apply()
-//                        Log.d("tag1", locVis.getString(getString(R.string.contact_value), ""))
-
                         Toast.makeText(this, "Others can view your location", Toast.LENGTH_SHORT).show()
                     }else{
                         locVis.edit().putBoolean(getString(R.string.key_location_visible), false).apply()
@@ -195,7 +153,6 @@ class PersonListActivity : AppCompatActivity() {
                 }
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -203,8 +160,6 @@ class PersonListActivity : AppCompatActivity() {
 
     private fun setFAB(fab_type: String) {
         val fab = findViewById<View>(R.id.fab) as FloatingActionButton
-
-
         val fabRefreshListener = View.OnClickListener {
             loadData()
         }
@@ -293,7 +248,6 @@ class PersonListActivity : AppCompatActivity() {
             } else {
                 holder.mLocation.text = ""
             }
-
         }
 
         override fun getItemCount(): Int {
@@ -350,7 +304,6 @@ class PersonListActivity : AppCompatActivity() {
     }
 
     fun readUserByGender(genderSelf: String, genderPref: String, selfName: String) {
-        val selfGender =
         db.collection("users")
             .whereEqualTo("gender", genderPref)
             .whereEqualTo("gender_pref", genderSelf)
@@ -358,7 +311,6 @@ class PersonListActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 currentUsers.clear()
                 for (document in documents) {
-//                    Log.d(TAG, document.id + " => " + document.data)
                     val age = getAge(document.get("dob") as Date)
 
                     if (document.get("first_name").toString() == selfName) { // self-exclusive
@@ -392,27 +344,4 @@ class PersonListActivity : AppCompatActivity() {
                 Log.w(TAG, "Error getting documents: ", exception)
             }
     }
-
-//    fun readUserById(userId : String) {
-//        val docRef = db.collection("users").document(userId)
-//        docRef.get().addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                val document = task.result
-//                if (document!!.exists()) {
-//
-//                    val age = getAge(document.get("dob") as Date)
-//
-//                    currentUsers.add(User(document.get("first_name").toString(), document.get("last_name").toString(),
-//                        age, document.get("gender").toString(), document.get("gender_pref").toString(),
-//                        document.get("location") as MutableMap<String, Double>, document.get("profile_picture").toString(),
-//                        document.get("summary").toString(), document.get("interests").toString(), DEFAULT_DISTANCE))
-//
-//                } else {
-//                    Log.d(TAG, "No such user")
-//                }
-//            } else {
-//                Log.d(TAG, "get failed with ", task.exception)
-//            }
-//        }
-//    }
 }

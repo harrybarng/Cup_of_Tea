@@ -24,19 +24,15 @@ import com.google.firebase.storage.UploadTask
 class ProfilePictureActivity : AppCompatActivity() {
     private val CAMERA_RESPONSE_CODE = 1
     private val OPEN_DOCUMENT_CODE = 2
-
     private val storage = FirebaseStorage.getInstance()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_picture)
-
         findViewById<Button>(R.id.bt_get_started).setOnClickListener { v ->
             val intent = Intent(this, AgeActivity::class.java)
             this.startActivity(intent)
         }
-
     }
 
     fun takePicture(v: View?) {
@@ -46,7 +42,6 @@ class ProfilePictureActivity : AppCompatActivity() {
         if (intent.resolveActivity(packageManager) != null) {
             startActivityForResult(intent, CAMERA_RESPONSE_CODE)
         }
-
     }
 
     fun fromAlbum(v: View?) {
@@ -54,13 +49,11 @@ class ProfilePictureActivity : AppCompatActivity() {
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
         startActivityForResult(intent, OPEN_DOCUMENT_CODE)
-
     }
 
     fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap {
         var width = image.width
         var height = image.height
-
         val bitmapRatio = width.toFloat() / height.toFloat()
         if (bitmapRatio > 1) {
             width = maxSize
@@ -74,8 +67,6 @@ class ProfilePictureActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, imageData: Intent?) {
         if (requestCode == CAMERA_RESPONSE_CODE || requestCode == OPEN_DOCUMENT_CODE && resultCode == Activity.RESULT_OK) {
-
-
             var bitmap = if (requestCode == CAMERA_RESPONSE_CODE) {
                 if (imageData!!.extras == null) {
                     null
@@ -98,8 +89,6 @@ class ProfilePictureActivity : AppCompatActivity() {
                 val filename = settings.getString(getString(R.string.contact_value), "2062222222")
                 val ref = storageRef.child("profile_pics/$filename.jpg")
 
-
-
                 Toast.makeText(this, "Uploading....", Toast.LENGTH_SHORT).show()
 
                 val uploadTask = ref.putBytes(data)
@@ -110,7 +99,6 @@ class ProfilePictureActivity : AppCompatActivity() {
 //                .addOnSuccessListener {
 //
 //                }
-
 
                 val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
                     if (!task.isSuccessful) {
@@ -131,19 +119,12 @@ class ProfilePictureActivity : AppCompatActivity() {
                             val imageView = findViewById<ImageView>(R.id.img_thumbnail)
                             imageView.setImageBitmap(bitmap)
                             Toast.makeText(this, "Upload Done", Toast.LENGTH_SHORT).show()
-
-    //                    Log.v("profile_pic", "Profile pic url from preference: " + settings.getString(R.string.key_profile_picture.toString(), ""))
-                            // can put it in shared pref
-    //                    Log.v("profile_pic", downloadUri.toString())
-
                         } else {
                             Toast.makeText(this, "Upload Failed", Toast.LENGTH_SHORT).show()
                             // Handle failures
                             // ...
                         }
-
                     }
-
                 }
         }
 
