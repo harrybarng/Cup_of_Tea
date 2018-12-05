@@ -38,13 +38,15 @@
                     android:layout_width="match_parent"
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:orientation="vertical"
-                    android:layout_marginTop="20dp"
                     android:padding="16dp"
             >
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                         android:id="@+id/profile_image"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="20dp"
+
+                />
 
                 <LinearLayout
                         android:layout_width="wrap_content"
@@ -53,7 +55,7 @@
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="My Name: "
@@ -63,7 +65,7 @@
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
                               android:id="@+id/detail_name"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body2"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
                               android:textIsSelectable="true"
@@ -77,7 +79,7 @@
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="Summary: "
@@ -102,7 +104,7 @@
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="My Birthdate: "
@@ -129,7 +131,7 @@
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="My gender: "
@@ -139,8 +141,8 @@
 
                     <ImageView
                             android:id="@+id/my_gender_img"
-                            android:layout_width="21dp"
-                            android:layout_height="30dp"
+                            android:layout_width="20dp"
+                            android:layout_height="22dp"
                             android:src="@drawable/masculine"
                     />
 
@@ -153,7 +155,7 @@
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="Interested gender: "
@@ -163,8 +165,8 @@
 
                     <ImageView
                             android:id="@+id/interested_gender_img"
-                            android:layout_width="21dp"
-                            android:layout_height="30dp"
+                            android:layout_width="20dp"
+                            android:layout_height="22dp"
                             android:src="@drawable/masculine"
                     />
 
@@ -176,7 +178,7 @@
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="My interests: "
@@ -202,7 +204,7 @@
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                               xmlns:tools="http://schemas.android.com/tools"
-                              style="@style/TextAppearance.MaterialComponents.Headline5"
+                              style="@style/TextAppearance.MaterialComponents.Body1"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="Contact Method: "
