@@ -154,7 +154,6 @@ class PersonListActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         if (menu != null) {
-            menuInflater.inflate(R.menu.drawer_view, menu)
             val settings = PreferenceManager.getDefaultSharedPreferences(this)
             val switch = findViewById<SwitchCompat>(R.id.drawer_switch)
             switch.isChecked = settings.getBoolean(getString(R.string.key_location_visible), true)
