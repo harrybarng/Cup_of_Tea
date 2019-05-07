@@ -2,6 +2,9 @@
 
 Jake Jin, Harry Barng, Liuqing Ma, Wonjo Barng
 
+## Demo Video (iOS and Android)
+[![YouTube Demo Video](https://img.youtube.com/vi/3cB3bl6wHlI/0.jpg)](https://www.youtube.com/watch?v=3cB3bl6wHlI)
+
 ## Instruction/User manual ##
 A dating app based on realtime Firebase DB. Go ahead and find the one!
 
